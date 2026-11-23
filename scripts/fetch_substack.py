@@ -53,7 +53,7 @@ def main():
         # Keep the old list on a hiccup; only create an empty one if there is none yet.
         if not OUT.exists():
             OUT.write_text("[]\n")
-        return 0  # never fail the Action: the page simply shows "Writing soon."
+        return 0  # never fail the Action: the page simply shows "Learning it right now."
 
     OUT.write_text(json.dumps(posts, ensure_ascii=False, indent=2) + "\n")
     print(f"Wrote {len(posts)} posts to {OUT.name}.")

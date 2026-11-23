@@ -155,7 +155,7 @@
   fetch("posts.json")
     .then(function (r) { return r.json(); })
     .then(function (posts) {
-      if (!Array.isArray(posts) || posts.length === 0) return; // keep "Writing soon."
+      if (!Array.isArray(posts) || posts.length === 0) return; // keep "Learning it right now."
       var list = document.getElementById("posts");
       list.replaceChildren();
       posts.slice(0, 5).forEach(function (post) {

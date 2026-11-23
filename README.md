@@ -30,7 +30,7 @@ browsers block reading `projects.json` from a `file://` page.)
 
 `.github/workflows/substack.yml` runs `scripts/fetch_substack.py` every day and on every push.
 It writes the latest 5 posts to `posts.json` and commits it only if something changed.
-With no feed yet, `posts.json` stays `[]` and the page shows "Writing soon.".
+With no feed yet, `posts.json` stays `[]` and the page shows "Learning it right now.".
 
 ## Credits
 
