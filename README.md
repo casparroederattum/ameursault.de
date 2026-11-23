@@ -12,7 +12,7 @@ Hosted on GitHub Pages from the `main` branch.
 | change colours              | `css/style.css`, the `:root` block at the top            |
 | connect my Substack         | `scripts/fetch_substack.py`, the `FEED_URL` line         |
 | add a book to the reading list | `books.json`: add `{ "title": "…", "author": "…", "read": "Nov 2026", "review": "about 100 words" }` at the top |
-| fill in Impressum/Datenschutz | `impressum.html`, `datenschutz.html` (every `[BRACKETED]` part) |
+| fill in Datenschutz          | `datenschutz.html` (every `[BRACKETED]` part) |
 
 Then commit and push. The site updates within a minute or two.
 
