@@ -164,15 +164,9 @@ button { font: inherit; color: inherit; }
   pointer-events: none;
 }
 .pixels rect { fill: var(--ink); }
-@media (prefers-reduced-motion: no-preference) {
-  /* "Impulsive": long calm, then a sudden flash, not a smooth fade. */
-  .pixels rect { animation: pixel 3s steps(1, end) infinite; }
-  @keyframes pixel {
-    0%, 62% { fill: var(--ink); }
-    64%, 78% { fill: var(--orange); }
-    80%, 100% { fill: var(--ink); }
-  }
-}
+/* Classes set by js/pixels.js (Rule 30): off, on, and just switched on. */
+.pixels rect.off { fill: transparent; }
+.pixels rect.new { fill: var(--orange); }
 @media (max-width: 859px) {
   .pixels { top: 150px; width: 64px; }
   .name { padding-right: 76px; }
@@ -191,6 +185,21 @@ button { font: inherit; color: inherit; }
 .stage .joint { fill: var(--paper); stroke: var(--ink); stroke-width: 2.5; }
 .stage .palm { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
 .stage .finger { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+/* Once the show is over the arm is yours: orange joints can be dragged, the fingers tapped. */
+.stage .handle { fill: transparent; pointer-events: none; outline: none; }
+.stage.live .handle { pointer-events: all; cursor: grab; touch-action: none; }
+.stage.live .handle:active { cursor: grabbing; }
+.stage.live #h-grip { cursor: pointer; }
+.stage .joint.dof { transition: fill 0.4s; }
+.stage.live .joint.dof { fill: var(--orange); }
+.stage .handle:focus-visible { stroke: var(--orange); stroke-width: 2; stroke-dasharray: 4 3; }
+.stage-hint {
+  min-height: 1.4em; margin-top: 10px;
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+  opacity: 0; transition: opacity 0.6s;
+}
+.stage.live .stage-hint { opacity: 1; }
+.stage-hint::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--orange); vertical-align: 0.1em; }
 
 /* ---------- section headings ---------- */
 h2 {

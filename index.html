@@ -50,6 +50,7 @@
   <script>document.documentElement.classList.add("js")</script>
   <script src="js/robot-arm.js" defer></script>
   <script src="js/page.js" defer></script>
+  <script src="js/pixels.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -62,38 +63,38 @@
 
       <!-- Abstract pixel mosaic (idea from the LauzHack page): squares flash orange at random-ish moments. -->
       <svg class="pixels" viewBox="0 0 100 60" aria-hidden="true" focusable="false">
-        <rect x="0.6" y="0.6" width="8.8" height="8.8" style="animation-delay:0s;animation-duration:2.2s"/>
-        <rect x="20.6" y="0.6" width="8.8" height="8.8" style="animation-delay:0.53s;animation-duration:2.57s"/>
-        <rect x="30.6" y="0.6" width="8.8" height="8.8" style="animation-delay:1.06s;animation-duration:2.94s"/>
-        <rect x="60.6" y="0.6" width="8.8" height="8.8" style="animation-delay:1.59s;animation-duration:3.31s"/>
-        <rect x="80.6" y="0.6" width="8.8" height="8.8" style="animation-delay:2.12s;animation-duration:3.68s"/>
-        <rect x="0.6" y="10.6" width="8.8" height="8.8" style="animation-delay:2.65s;animation-duration:4.05s"/>
-        <rect x="10.6" y="10.6" width="8.8" height="8.8" style="animation-delay:3.18s;animation-duration:4.42s"/>
-        <rect x="20.6" y="10.6" width="8.8" height="8.8" style="animation-delay:3.71s;animation-duration:2.39s"/>
-        <rect x="40.6" y="10.6" width="8.8" height="8.8" style="animation-delay:0.24s;animation-duration:2.76s"/>
-        <rect x="60.6" y="10.6" width="8.8" height="8.8" style="animation-delay:0.77s;animation-duration:3.13s"/>
-        <rect x="70.6" y="10.6" width="8.8" height="8.8" style="animation-delay:1.3s;animation-duration:3.5s"/>
-        <rect x="90.6" y="10.6" width="8.8" height="8.8" style="animation-delay:1.83s;animation-duration:3.87s"/>
-        <rect x="10.6" y="20.6" width="8.8" height="8.8" style="animation-delay:2.36s;animation-duration:4.24s"/>
-        <rect x="30.6" y="20.6" width="8.8" height="8.8" style="animation-delay:2.89s;animation-duration:2.21s"/>
-        <rect x="40.6" y="20.6" width="8.8" height="8.8" style="animation-delay:3.42s;animation-duration:2.58s"/>
-        <rect x="50.6" y="20.6" width="8.8" height="8.8" style="animation-delay:3.95s;animation-duration:2.95s"/>
-        <rect x="70.6" y="20.6" width="8.8" height="8.8" style="animation-delay:0.48s;animation-duration:3.32s"/>
-        <rect x="0.6" y="30.6" width="8.8" height="8.8" style="animation-delay:1.01s;animation-duration:3.69s"/>
-        <rect x="10.6" y="30.6" width="8.8" height="8.8" style="animation-delay:1.54s;animation-duration:4.06s"/>
-        <rect x="30.6" y="30.6" width="8.8" height="8.8" style="animation-delay:2.07s;animation-duration:4.43s"/>
-        <rect x="50.6" y="30.6" width="8.8" height="8.8" style="animation-delay:2.6s;animation-duration:2.4s"/>
-        <rect x="80.6" y="30.6" width="8.8" height="8.8" style="animation-delay:3.13s;animation-duration:2.77s"/>
-        <rect x="90.6" y="30.6" width="8.8" height="8.8" style="animation-delay:3.66s;animation-duration:3.14s"/>
-        <rect x="0.6" y="40.6" width="8.8" height="8.8" style="animation-delay:0.19s;animation-duration:3.51s"/>
-        <rect x="30.6" y="40.6" width="8.8" height="8.8" style="animation-delay:0.72s;animation-duration:3.88s"/>
-        <rect x="40.6" y="40.6" width="8.8" height="8.8" style="animation-delay:1.25s;animation-duration:4.25s"/>
-        <rect x="60.6" y="40.6" width="8.8" height="8.8" style="animation-delay:1.78s;animation-duration:2.22s"/>
-        <rect x="80.6" y="40.6" width="8.8" height="8.8" style="animation-delay:2.31s;animation-duration:2.59s"/>
-        <rect x="10.6" y="50.6" width="8.8" height="8.8" style="animation-delay:2.84s;animation-duration:2.96s"/>
-        <rect x="40.6" y="50.6" width="8.8" height="8.8" style="animation-delay:3.37s;animation-duration:3.33s"/>
-        <rect x="70.6" y="50.6" width="8.8" height="8.8" style="animation-delay:3.9s;animation-duration:3.7s"/>
-        <rect x="90.6" y="50.6" width="8.8" height="8.8" style="animation-delay:0.43s;animation-duration:4.07s"/>
+        <rect x="0.6" y="0.6" width="8.8" height="8.8"/>
+        <rect x="20.6" y="0.6" width="8.8" height="8.8"/>
+        <rect x="30.6" y="0.6" width="8.8" height="8.8"/>
+        <rect x="60.6" y="0.6" width="8.8" height="8.8"/>
+        <rect x="80.6" y="0.6" width="8.8" height="8.8"/>
+        <rect x="0.6" y="10.6" width="8.8" height="8.8"/>
+        <rect x="10.6" y="10.6" width="8.8" height="8.8"/>
+        <rect x="20.6" y="10.6" width="8.8" height="8.8"/>
+        <rect x="40.6" y="10.6" width="8.8" height="8.8"/>
+        <rect x="60.6" y="10.6" width="8.8" height="8.8"/>
+        <rect x="70.6" y="10.6" width="8.8" height="8.8"/>
+        <rect x="90.6" y="10.6" width="8.8" height="8.8"/>
+        <rect x="10.6" y="20.6" width="8.8" height="8.8"/>
+        <rect x="30.6" y="20.6" width="8.8" height="8.8"/>
+        <rect x="40.6" y="20.6" width="8.8" height="8.8"/>
+        <rect x="50.6" y="20.6" width="8.8" height="8.8"/>
+        <rect x="70.6" y="20.6" width="8.8" height="8.8"/>
+        <rect x="0.6" y="30.6" width="8.8" height="8.8"/>
+        <rect x="10.6" y="30.6" width="8.8" height="8.8"/>
+        <rect x="30.6" y="30.6" width="8.8" height="8.8"/>
+        <rect x="50.6" y="30.6" width="8.8" height="8.8"/>
+        <rect x="80.6" y="30.6" width="8.8" height="8.8"/>
+        <rect x="90.6" y="30.6" width="8.8" height="8.8"/>
+        <rect x="0.6" y="40.6" width="8.8" height="8.8"/>
+        <rect x="30.6" y="40.6" width="8.8" height="8.8"/>
+        <rect x="40.6" y="40.6" width="8.8" height="8.8"/>
+        <rect x="60.6" y="40.6" width="8.8" height="8.8"/>
+        <rect x="80.6" y="40.6" width="8.8" height="8.8"/>
+        <rect x="10.6" y="50.6" width="8.8" height="8.8"/>
+        <rect x="40.6" y="50.6" width="8.8" height="8.8"/>
+        <rect x="70.6" y="50.6" width="8.8" height="8.8"/>
+        <rect x="90.6" y="50.6" width="8.8" height="8.8"/>
       </svg>
 
       <div class="hero-grid">
@@ -106,8 +107,8 @@
         </ul>
 
         <figure class="stage">
-          <svg id="arm-scene" viewBox="0 0 420 290" role="img" aria-labelledby="scene-title">
-            <title id="scene-title">A small robot arm picks up my portrait and drops it. It bounces, splits into little cells and they zoom off to the right.</title>
+          <svg id="arm-scene" viewBox="0 0 420 290" role="group" aria-labelledby="scene-title">
+            <title id="scene-title">A small robot arm picks up my portrait and drops it. It bounces, splits into little cells that zoom off to the right, and then comes back. Afterwards you can move the arm yourself.</title>
 
             <!-- My face. JS moves this group; without JS it simply sits here. -->
             <g id="face" transform="translate(330 226)">
@@ -130,14 +131,24 @@
             <line id="l2" class="link" x1="20" y1="68.7" x2="150" y2="66" />
             <line id="l2i" class="link-in" x1="20" y1="68.7" x2="150" y2="66" />
             <circle class="joint" cx="90" cy="190" r="10" />
-            <circle id="elbow" class="joint" cx="20" cy="68.7" r="8" />
+            <circle id="elbow" class="joint dof" cx="20" cy="68.7" r="8" />
             <g id="grip" transform="translate(150 66)">
               <line class="palm" x1="-62" y1="4" x2="62" y2="4" />
               <g id="fL" transform="translate(-56 0)"><path class="finger" d="M0 4 V48 L7 56" /></g>
               <g id="fR" transform="translate(56 0)"><path class="finger" d="M0 4 V48 L-7 56" /></g>
-              <circle class="joint" r="6" />
+              <circle class="joint dof" r="6" />
+              <!-- Touch areas, bigger than what you see. Tap the fingers to open or close them,
+                   drag the hub to bend the elbow. -->
+              <rect id="h-grip" class="handle" x="-70" y="10" width="140" height="56" tabindex="-1"
+                    role="switch" aria-checked="true" aria-label="Gripper open" />
+              <circle id="h-elbow" class="handle" r="30" tabindex="-1"
+                      role="slider" aria-label="Elbow joint" aria-valuemin="-150" aria-valuemax="150" aria-valuenow="0" />
             </g>
+            <!-- Drag the elbow to swing the whole arm around the shoulder. -->
+            <circle id="h-shoulder" class="handle" cx="20" cy="68.7" r="30" tabindex="-1"
+                    role="slider" aria-label="Shoulder joint" aria-valuemin="-180" aria-valuemax="180" aria-valuenow="0" />
           </svg>
+          <figcaption class="stage-hint" aria-live="polite"></figcaption>
         </figure>
 
         <div class="about">
@@ -189,7 +200,7 @@
   <footer class="sec foot" id="colophon">
     <div class="oar"><span class="seat"></span><span class="label">05 · Stern</span></div>
     <p class="small">© 2026 Caspar Röder · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
-    <p class="small">No cookies, no trackers. The dots are oars from one of my linocut prints.</p>
+    <p class="small">No cookies, no trackers. The dots are oars from one of my linocut prints. The pixels top right run Rule 30: every row is born from the one above, orange cells have just switched on.</p>
   </footer>
 </div>
 

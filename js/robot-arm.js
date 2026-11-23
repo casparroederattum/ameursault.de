@@ -1,35 +1,41 @@
-// Robot arm: picks up my face and drops it; it bounces, splits into cells (agar-style)
-// and the cells zoom off to the right. Plays once, about 6 seconds.
-// We only ever say where the gripper (the "wrist") should be; simple two-link
+// Robot arm: picks up my face and drops it; it bounces, splits into cells (agar-style),
+// the cells zoom off to the right, and the face grows back at its old spot. Plays once,
+// under 8 seconds. After that the arm is yours: drag the orange joints, tap the gripper.
+// During the show we only say where the gripper (the "wrist") should be; simple two-link
 // inverse kinematics works out where the elbow goes. That keeps the timeline readable.
 (function () {
   var svg = document.getElementById("arm-scene");
   if (!svg) return;
+  var stage = svg.closest(".stage");
+  var hint = stage && stage.querySelector(".stage-hint");
 
   var SHOULDER = { x: 90, y: 190 };
   var L1 = 140, L2 = 130;            // upper arm, forearm
-  var OPEN = 56, SHUT = 47;          // half the gap between the fingers
+  var OPEN = 56, SHUT = 47, CLOSED = 12; // half the gap between the fingers
   var HOLD = 50;                     // face centre sits this far below the wrist
   var R = 44;                        // face radius
   var FLOOR = 270;                   // invisible floor: bottom edge of everything
-  var FLOOR_FACE = { x: 195, y: FLOOR - R };
+  var HOME = { x: 195, y: FLOOR - R }; // where the face starts, and where it comes back
   var DROP_X = 330;                  // where the face lands
   var SETTLED = 3.7;                 // face has landed and stopped wobbling
   var SPLIT = 3.95;                  // the face becomes two cells
   var SPLIT2 = 4.35;                 // ...and then four
-  var END = 6.0;                     // seconds
+  var GONE = 6.0;                    // the last cell has left
+  var BACK = 6.2;                    // the face starts to grow back at home
+  var END = 7.7;                     // seconds
 
   var P = {
     away:  { x: 70,  y: 30 },        // arm starts swung away
-    above: { x: 195, y: 120 },
-    pick:  { x: 195, y: 176 },
+    above: { x: HOME.x, y: 120 },
+    pick:  { x: HOME.x, y: 176 },
     lift:  { x: 275, y: -15 },       // control point of the arc
     drop:  { x: DROP_X, y: 104 },
     rest:  { x: 150, y: 66 }
   };
 
   var el = {};
-  ["l1", "l1i", "l2", "l2i", "elbow", "grip", "fL", "fR", "face", "c0", "c1", "c2", "c3"].forEach(function (id) {
+  ["l1", "l1i", "l2", "l2i", "elbow", "grip", "fL", "fR", "face", "c0", "c1", "c2", "c3",
+   "h-shoulder", "h-elbow", "h-grip"].forEach(function (id) {
     el[id] = document.getElementById(id);
   });
   var cellEls = [el.c0, el.c1, el.c2, el.c3];
@@ -45,6 +51,8 @@
   function arc(a, c, b, p) { // quadratic Bézier: a smooth lift through c
     return mixPt(mixPt(a, c, p), mixPt(c, b, p), p);
   }
+  function wrapAngle(a) { while (a > Math.PI) a -= 2 * Math.PI; while (a <= -Math.PI) a += 2 * Math.PI; return a; }
+  function deg(a) { return Math.round(a * 180 / Math.PI); }
 
   // Elbow position for a wrist target ("elbow up", like a real desk arm).
   function elbowFor(w) {
@@ -57,7 +65,7 @@
 
   // Arm and whole face at second t.
   function pose(t) {
-    var wrist, grip = OPEN, face = { x: FLOOR_FACE.x, y: FLOOR_FACE.y }, tilt = 0, swell = 1;
+    var wrist, grip = OPEN, face = { x: HOME.x, y: HOME.y }, tilt = 0, swell = 1, show = 1;
 
     if (t < 0.8)       wrist = mixPt(P.away, P.above, easeInOut(part(t, 0, 0.8)));
     else if (t < 1.15) wrist = mixPt(P.above, P.pick, easeInOut(part(t, 0.8, 1.15)));
@@ -71,8 +79,8 @@
 
     if (t >= 1.4 && t < 2.55) {             // carried
       face = { x: wrist.x, y: wrist.y + HOLD };
-    } else if (t >= 2.55) {                 // fall, two bounces, settle
-      var top = P.drop.y + HOLD, floor = FLOOR_FACE.y;
+    } else if (t >= 2.55 && t < BACK) {     // fall, two bounces, settle
+      var top = P.drop.y + HOLD, floor = HOME.y;
       var y = mix(top, floor, part(t, 2.55, 2.9) * part(t, 2.55, 2.9));
       if (t >= 2.9)  y = mix(floor, floor - 26, easeOut(part(t, 2.9, 3.05)));
       if (t >= 3.05) y = mix(floor - 26, floor, part(t, 3.05, 3.2) * part(t, 3.05, 3.2));
@@ -85,14 +93,19 @@
       // Just before splitting it swells a little, like a cell gathering itself.
       swell = 1 + 0.08 * Math.sin(Math.PI * part(t, SETTLED, SPLIT));
       face = { x: DROP_X, y: y };
+      if (t >= SPLIT) show = 0;
+    } else if (t >= BACK) {                 // grows back at home, slowly, from the floor up
+      var g = easeInOut(part(t, BACK, END));
+      swell = mix(0.25, 1, g);
+      show = g;
     }
-    return { wrist: wrist, grip: grip, face: face, tilt: tilt, swell: swell };
+    return { wrist: wrist, grip: grip, face: face, tilt: tilt, swell: swell, show: show };
   }
 
   // The cells after the split. Each splits in two halves of equal area (radius / √2),
   // the front half is shot forward, then everything drifts right, speeds up and fades.
   function cellsAt(t) {
-    if (t < SPLIT) return [];
+    if (t < SPLIT || t >= GONE) return [];
     var R1 = R / Math.SQRT2, R2 = R / 2;
     var p = part(t, SPLIT, SPLIT2), e = easeOut(p);
     var kick = 0.2 * (1 - p);                    // squash-and-stretch right after a split
@@ -110,7 +123,7 @@
     ];
     // Off to the right, one after another; stretched by the speed, fading at the end.
     cells.forEach(function (c, i) {
-      var s = part(t, SPLIT2 + 0.35 + i * 0.08, END - 0.1);
+      var s = part(t, SPLIT2 + 0.35 + i * 0.08, GONE - 0.1);
       c.x += 620 * easeIn(s);
       c.sx *= 1 + 0.25 * s;
       c.sy *= 1 - 0.1 * s;
@@ -124,17 +137,22 @@
     line.setAttribute("x2", b.x); line.setAttribute("y2", b.y);
   }
 
-  function draw(t) {
-    var s = pose(t), e = elbowFor(s.wrist);
+  function drawArm(e, w, grip) {
     setLine(el.l1, SHOULDER, e); setLine(el.l1i, SHOULDER, e);
-    setLine(el.l2, e, s.wrist);  setLine(el.l2i, e, s.wrist);
+    setLine(el.l2, e, w);        setLine(el.l2i, e, w);
     el.elbow.setAttribute("cx", e.x); el.elbow.setAttribute("cy", e.y);
-    el.grip.setAttribute("transform", "translate(" + s.wrist.x + " " + s.wrist.y + ")");
-    el.fL.setAttribute("transform", "translate(" + -s.grip + " 0)");
-    el.fR.setAttribute("transform", "translate(" + s.grip + " 0)");
+    el["h-shoulder"].setAttribute("cx", e.x); el["h-shoulder"].setAttribute("cy", e.y);
+    el.grip.setAttribute("transform", "translate(" + w.x + " " + w.y + ")");
+    el.fL.setAttribute("transform", "translate(" + -grip + " 0)");
+    el.fR.setAttribute("transform", "translate(" + grip + " 0)");
+  }
+
+  function draw(t) {
+    var s = pose(t);
+    drawArm(elbowFor(s.wrist), s.wrist, s.grip);
     el.face.setAttribute("transform",
       "translate(" + s.face.x + " " + (s.face.y + R * (1 - s.swell)) + ") rotate(" + s.tilt + ") scale(" + s.swell + ")");
-    el.face.setAttribute("opacity", t < SPLIT ? 1 : 0);
+    el.face.setAttribute("opacity", s.show);
 
     var cells = cellsAt(t);
     cellEls.forEach(function (node, i) {
@@ -147,7 +165,123 @@
     });
   }
 
-  // --- playback ---
+  // People who asked their system for less motion get no show and no animated gripper.
+  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // --- the arm is yours: three degrees of freedom ---
+  // a1: shoulder angle (absolute), a2: elbow angle (relative to the upper arm), grip: finger gap.
+  var live = false, a1 = 0, a2 = 0, grip = OPEN, gripTo = OPEN, gripFrame = 0;
+
+  function joints(n1, n2) {
+    var e = { x: SHOULDER.x + L1 * Math.cos(n1), y: SHOULDER.y + L1 * Math.sin(n1) };
+    var w = { x: e.x + L2 * Math.cos(n1 + n2), y: e.y + L2 * Math.sin(n1 + n2) };
+    return { e: e, w: w };
+  }
+  // Keep the arm above the floor (fingers included), out of the text above, and not folded onto itself.
+  function allowed(j, n2) {
+    return Math.abs(n2) <= 2.6 && j.e.y <= FLOOR - 16 && j.w.y <= FLOOR - 60 && j.w.y >= -12 && j.e.y >= -12;
+  }
+  function setAngles(n1, n2) {
+    n1 = wrapAngle(n1); n2 = wrapAngle(n2);
+    var j = joints(n1, n2);
+    if (!allowed(j, n2)) return;
+    a1 = n1; a2 = n2;
+    drawLive();
+  }
+  function drawLive() {
+    var j = joints(a1, a2);
+    drawArm(j.e, j.w, grip);
+    el["h-shoulder"].setAttribute("aria-valuenow", deg(-a1));
+    el["h-elbow"].setAttribute("aria-valuenow", deg(-a2));
+  }
+  function setGrip(open) {
+    gripTo = open ? OPEN : CLOSED;
+    el["h-grip"].setAttribute("aria-checked", open ? "true" : "false");
+    el["h-grip"].setAttribute("aria-label", open ? "Gripper open" : "Gripper closed");
+    if (calm) { grip = gripTo; drawLive(); return; }
+    if (!gripFrame) gripFrame = requestAnimationFrame(stepGrip);
+  }
+  function stepGrip() {
+    grip += (gripTo - grip) * 0.22;
+    if (Math.abs(gripTo - grip) < 0.3) { grip = gripTo; gripFrame = 0; }
+    else gripFrame = requestAnimationFrame(stepGrip);
+    drawLive();
+  }
+
+  function goLive() {
+    if (live) return;
+    live = true;
+    var e = elbowFor(P.rest);
+    a1 = Math.atan2(e.y - SHOULDER.y, e.x - SHOULDER.x);
+    a2 = wrapAngle(Math.atan2(P.rest.y - e.y, P.rest.x - e.x) - a1);
+    grip = gripTo = OPEN;
+    drawLive();
+    ["h-shoulder", "h-elbow", "h-grip"].forEach(function (id) { el[id].setAttribute("tabindex", "0"); });
+    if (stage) stage.classList.add("live");
+    if (hint) hint.textContent = "Your turn: drag the orange joints, tap the gripper";
+  }
+
+  // Pointer position in the drawing's own coordinates.
+  function svgPoint(ev) {
+    var m = svg.getScreenCTM().inverse();
+    return { x: m.a * ev.clientX + m.c * ev.clientY + m.e, y: m.b * ev.clientX + m.d * ev.clientY + m.f };
+  }
+
+  var drag = null; // { which, id, from, moved }
+  function down(which) {
+    return function (ev) {
+      if (ev.button > 0) return;
+      ev.preventDefault();
+      skip(); goLive();
+      drag = { which: which, id: ev.pointerId, from: svgPoint(ev), moved: false };
+      try { ev.currentTarget.setPointerCapture(ev.pointerId); } catch (err) { /* old browsers */ }
+    };
+  }
+  function move(ev) {
+    if (!drag || ev.pointerId !== drag.id) return;
+    var p = svgPoint(ev);
+    if (Math.hypot(p.x - drag.from.x, p.y - drag.from.y) > 3) drag.moved = true;
+    if (drag.which === "shoulder") {
+      setAngles(Math.atan2(p.y - SHOULDER.y, p.x - SHOULDER.x), a2);
+    } else if (drag.which === "elbow") {
+      var e = joints(a1, a2).e;
+      setAngles(a1, Math.atan2(p.y - e.y, p.x - e.x) - a1);
+    }
+  }
+  function up(ev) {
+    if (!drag || ev.pointerId !== drag.id) return;
+    if (drag.which === "grip" && !drag.moved) setGrip(gripTo !== OPEN);
+    drag = null;
+  }
+  [["h-shoulder", "shoulder"], ["h-elbow", "elbow"], ["h-grip", "grip"]].forEach(function (h) {
+    var node = el[h[0]];
+    node.addEventListener("pointerdown", down(h[1]));
+    node.addEventListener("pointermove", move);
+    node.addEventListener("pointerup", up);
+    node.addEventListener("pointercancel", up);
+  });
+
+  // Keyboard: arrows turn the focused joint by 5°, Enter or Space opens/closes the gripper.
+  var STEP = 5 * Math.PI / 180;
+  function keys(which) {
+    return function (ev) {
+      var k = ev.key, d = 0;
+      if (which === "grip") {
+        if (k !== "Enter" && k !== " ") return;
+        ev.preventDefault(); setGrip(gripTo !== OPEN); return;
+      }
+      if (k === "ArrowUp" || k === "ArrowRight") d = -STEP;      // up = counter-clockwise on screen
+      else if (k === "ArrowDown" || k === "ArrowLeft") d = STEP;
+      else return;
+      ev.preventDefault();
+      if (which === "shoulder") setAngles(a1 + d, a2); else setAngles(a1, a2 + d);
+    };
+  }
+  el["h-shoulder"].addEventListener("keydown", keys("shoulder"));
+  el["h-elbow"].addEventListener("keydown", keys("elbow"));
+  el["h-grip"].addEventListener("keydown", keys("grip"));
+
+  // --- the show ---
   // Our own clock: it only moves while frames are actually drawn, and never jumps more
   // than 1/20 s per frame. So if the page loads in a background tab (a link opened from
   // a chat app, say), the show waits instead of being over before anyone looks.
@@ -157,7 +291,7 @@
     last = now;
     draw(Math.min(t, END));
     if (t < END) frame = requestAnimationFrame(tick);
-    else { frame = 0; finished = true; }
+    else { frame = 0; finished = true; goLive(); }
   }
   function play() {
     if (started || finished) return;
@@ -169,11 +303,10 @@
     cancelAnimationFrame(frame);
     frame = 0; finished = true;
     draw(END);
+    goLive();
   }
 
-  // People who asked their system for less motion see the portrait resting, no motion.
-  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (calm) { draw(SETTLED); return; }
+  if (calm) { finished = true; draw(END); goLive(); return; }
 
   draw(0); // start pose: portrait on the floor, arm swung away
 
