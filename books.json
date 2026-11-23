@@ -1,5 +1,12 @@
 [
   {
+    "title": "Toussaint Louverture",
+    "author": "C.L.R. James",
+    "cover": "img/books/toussaint-louverture.webp",
+    "status": "reading",
+    "review": ""
+  },
+  {
     "title": "Steve Jobs",
     "author": "Walter Isaacson",
     "cover": "img/books/steve-jobs.webp",
