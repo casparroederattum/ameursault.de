@@ -146,7 +146,7 @@ button { font: inherit; color: inherit; }
 .name {
   font-weight: 700;
   font-size: clamp(3.4rem, 19vw, 8rem);
-  line-height: 1.04; /* room for the dots on the Ö when the name wraps */
+  line-height: 1.14; /* room for the dots on the Ö when the name wraps */
   letter-spacing: -0.005em;
 }
 .tags { display: flex; flex-wrap: wrap; gap: 4px 0; }
@@ -192,13 +192,15 @@ button { font: inherit; color: inherit; }
 .again {
   position: absolute; top: 0; right: 0;
   display: inline-flex; align-items: center; gap: 6px;
-  min-height: 32px; padding: 4px 12px;
+  min-height: 40px; padding: 4px 14px;
   border: 1px solid var(--ink); background: var(--paper);
   font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
   cursor: pointer;
 }
 .again svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
-.again:hover { color: var(--accent); border-color: var(--accent); }
+@media (hover: hover) {
+  .again:hover { color: var(--accent); border-color: var(--accent); }
+}
 
 /* ---------- section headings ---------- */
 h2 {
@@ -211,21 +213,29 @@ h2 {
 /* ---------- projects ---------- */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); /* 1 column on phones, 2 on desktop */
   gap: 16px;
 }
+.cards > li { display: flex; }
 .card {
+  position: relative;
   display: flex; flex-direction: column; gap: 10px;
-  width: 100%; height: 100%; min-height: 200px;
+  width: 100%; min-height: 200px;
   padding: 20px;
-  text-align: left;
   background: var(--paper);
   border: 1px solid var(--ink);
-  border-radius: 0;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
 }
 .card h3 { font-size: 1.6rem; font-weight: 600; line-height: 1.05; }
+/* The real button is the title; its ::after stretches over the whole card, so a click anywhere opens it. */
+.card h3 button {
+  padding: 0; border: 0; background: none;
+  font: inherit; text-align: left; text-transform: inherit; cursor: pointer;
+}
+.card h3 button::after { content: ""; position: absolute; inset: 0; }
+.card h3 button:focus-visible { outline: none; }
+.card:has(:focus-visible) { outline: 2px solid var(--accent-2); outline-offset: 3px; }
 .card p { margin: 0; font-size: 1.05rem; line-height: 1.4; }
 .card .tags { margin-top: auto; }
 .card .tags li { font-size: 0.68rem; }
@@ -233,7 +243,11 @@ h2 {
   align-self: flex-end;
   font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
 }
-.card:hover, .card:focus-visible { border-color: var(--accent); color: var(--accent); }
+.card:has(:focus-visible) { border-color: var(--accent); color: var(--accent); }
+/* Hover colours only on devices that really hover: on phones a tapped card would stay blue. */
+@media (hover: hover) {
+  .card:hover { border-color: var(--accent); color: var(--accent); }
+}
 
 /* Project details overlay */
 .sheet {
@@ -287,14 +301,16 @@ h2 {
 .links a {
   font-size: 1rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
   text-decoration: none;
+  display: inline-block;
+  padding: 10px 0 8px; /* comfortable tap target on phones */
   border-bottom: 1px solid var(--ink);
-  padding-bottom: 2px;
 }
 .links a:hover { border-color: var(--accent); }
 
 /* ---------- footer (the stern needs room below the last seat) ---------- */
 .foot { padding-bottom: 150px; }
 .small { font-size: 0.9rem; margin-bottom: 0.4em; }
+.small a { display: inline-block; padding: 10px 2px; } /* tap target */
 
 /* ---------- fade-in on scroll (only when JS runs and motion is fine) ---------- */
 @media (prefers-reduced-motion: no-preference) {

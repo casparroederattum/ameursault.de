@@ -26,11 +26,26 @@
   document.querySelectorAll(".reveal").forEach(reveal);
 
   // --- light up the seat of the section in the middle of the screen ---
+  var sections = Array.prototype.slice.call(document.querySelectorAll(".sec"));
+  var inMiddle = new Set();
+  function lightSeat() {
+    // The footer is short and never reaches the middle of the screen,
+    // so at the very bottom of the page the last seat (the stern) wins.
+    var atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    sections.forEach(function (s, i) {
+      var here = atBottom ? i === sections.length - 1 : inMiddle.has(s);
+      s.classList.toggle("is-here", here);
+    });
+  }
   if ("IntersectionObserver" in window) {
     var seats = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { e.target.classList.toggle("is-here", e.isIntersecting); });
+      entries.forEach(function (e) {
+        if (e.isIntersecting) inMiddle.add(e.target); else inMiddle.delete(e.target);
+      });
+      lightSeat();
     }, { rootMargin: "-45% 0px -50% 0px" });
-    document.querySelectorAll(".sec").forEach(function (s) { seats.observe(s); });
+    sections.forEach(function (s) { seats.observe(s); });
+    window.addEventListener("scroll", lightSeat, { passive: true });
   }
 
   // --- projects ---
@@ -51,6 +66,8 @@
       if (!url) return;
       var a = make("a", null, l.label + " ↗");
       a.href = url;
+      a.target = "_blank";  // the arrow promises a new tab
+      a.rel = "noopener";
       links.appendChild(a);
     });
     dialog.showModal();
@@ -75,16 +92,20 @@
       projects.forEach(function (p, i) {
         var li = make("li", "reveal");
         li.style.transitionDelay = (i % 2) * 80 + "ms"; // neighbours arrive one after another
-        var card = make("button", "card");
-        card.type = "button";
-        card.setAttribute("aria-haspopup", "dialog");
-        card.appendChild(make("h3", null, p.title));
+        // <article> keeps the heading a real heading; the title button opens the overlay.
+        var card = make("article", "card");
+        var h3 = make("h3");
+        var open = make("button", null, p.title);
+        open.type = "button";
+        open.setAttribute("aria-haspopup", "dialog");
+        open.addEventListener("click", function () { openProject(p, open); });
+        h3.appendChild(open);
+        card.appendChild(h3);
         card.appendChild(make("p", null, p.line));
         var tags = make("ul", "tags");
         fillTags(tags, p.tags);
         card.appendChild(tags);
         card.appendChild(make("span", "more", "Read more +"));
-        card.addEventListener("click", function (e) { e.stopPropagation(); openProject(p, card); });
         li.appendChild(card);
         list.appendChild(li);
         reveal(li);
