@@ -59,6 +59,21 @@
     var body = document.getElementById("sheet-body");
     body.replaceChildren();
     (p.more || []).forEach(function (s) { body.appendChild(make("p", null, s)); });
+    // Pictures inside the overlay are only created (and downloaded) when it opens.
+    (p.gallery || []).forEach(function (g) {
+      var fig = make("figure", "shot");
+      var box = make("div", "shot-box");  // scrolls sideways if the picture is wider than the sheet
+      box.tabIndex = 0;
+      box.setAttribute("role", "region");
+      box.setAttribute("aria-label", g.alt);
+      box.appendChild(picture(g, "eager"));
+      fig.appendChild(box);
+      function edge() { box.classList.toggle("more-right", box.scrollLeft + box.clientWidth < box.scrollWidth - 2); }
+      box.addEventListener("scroll", edge, { passive: true });
+      requestAnimationFrame(edge); // once the sheet is open and has a width
+      if (g.caption) fig.appendChild(make("figcaption", null, g.caption));
+      body.appendChild(fig);
+    });
     var links = document.getElementById("sheet-links");
     links.replaceChildren();
     (p.links || []).forEach(function (l) {
@@ -71,6 +86,17 @@
       links.appendChild(a);
     });
     dialog.showModal();
+  }
+
+  function picture(im, loading) {
+    var img = document.createElement("img");
+    img.src = im.src;
+    img.alt = im.alt || "";
+    if (im.width) img.width = im.width;
+    if (im.height) img.height = im.height;
+    img.loading = loading;
+    img.decoding = "async";
+    return img;
   }
 
   function fillTags(ul, tags) {
@@ -94,6 +120,12 @@
         li.style.transitionDelay = (i % 2) * 80 + "ms"; // neighbours arrive one after another
         // <article> keeps the heading a real heading; the title button opens the overlay.
         var card = make("article", "card");
+        if (p.image) {
+          card.classList.add("has-cover");
+          var cover = picture(p.image, "lazy");
+          cover.className = "cover";
+          card.appendChild(cover);
+        }
         var h3 = make("h3");
         var open = make("button", null, p.title);
         open.type = "button";

@@ -234,6 +234,15 @@ h2 {
 .card .tags li::after, .sheet .tags li::after { content: none; }
 .card .more { align-self: flex-end; font-size: 0.66rem; }
 .card .more::after { content: " →"; color: var(--orange); }
+/* Cover picture: edge to edge at the top of the card. */
+.card .cover {
+  display: block;
+  width: calc(100% + 48px); max-width: none; height: auto;
+  margin: -24px -24px 6px;
+  aspect-ratio: 16 / 9; object-fit: cover;
+  border-bottom: 1px solid var(--line);
+  background: var(--ink);
+}
 @media (hover: hover) {
   .card:hover { border-color: var(--ink); transform: translateY(-3px); box-shadow: 0 10px 30px -18px rgba(29, 29, 31, 0.45); }
   .card:hover h3 { color: var(--orange); }
@@ -255,6 +264,18 @@ h2 {
 .sheet .tags { margin-bottom: 22px; gap: 6px; }
 .sheet p { font-size: 1.1rem; }
 .sheet-links a { font-size: 0.78rem; margin-right: 20px; }
+/* Pictures in the overlay. A wide film strip keeps a readable height and scrolls sideways. */
+.shot { margin: 8px 0 26px; }
+.shot-box { overflow-x: auto; border: 1px solid var(--line); background: #fff; }
+/* The right edge fades out while there is more to scroll to. */
+.shot-box.more-right { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent); }
+.shot-box:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.shot img { display: block; height: 150px; width: auto; max-width: none; }
+.shot figcaption { margin-top: 10px; font-size: 1rem; line-height: 1.45; }
+.shot figcaption::before {
+  content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px;
+  border-radius: 50%; background: var(--orange); vertical-align: 0.1em;
+}
 .close {
   position: absolute; top: 8px; right: 8px;
   width: 44px; height: 44px;

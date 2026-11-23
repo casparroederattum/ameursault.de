@@ -3,6 +3,10 @@
     "title": "Frugal Site Check",
     "line": "Film a walk around your business, learn what a storm would hit first.",
     "tags": ["LauzHack 2026", "AXA challenge", "Python", "Multimodal AI"],
+    "image": {
+      "src": "img/frugal-site-check.webp", "width": 1200, "height": 675,
+      "alt": "Start of the Frugal Site Check report: \"Have your site checked before the next storm\", with hail and water risk for the address."
+    },
     "more": [
       "Built with my team at LauzHack 2026 for AXA's challenge \"Frugal use of Multimodal AI\".",
       "A business owner films a short walk around their site and enters the address. The app tells them what a storm would hit first, and what to do about it before the storm comes.",
@@ -10,9 +14,33 @@
       "Paid AI only looks where the map says it matters: one cheap call for all key frames, a stronger model only for the unclear ones. A check costs about a tenth of a US cent.",
       "What I learned: a small test set, labelled by hand, beats a good feeling. It showed us false alarms the demo never did, like a bedroom window taken for blinds."
     ],
+    "gallery": [
+      {
+        "src": "img/frugal-frames.webp", "width": 1614, "height": 198,
+        "alt": "Film strip of a short walk past a bus: 24 frames, 6 of them framed in green as picked, the rest greyed out as blurry, dark or with a sharper one nearby.",
+        "caption": "This is where it gets frugal. A 12-second walk has 360 frames. Free code checks 24 of them, drops the blurry, dark and repeated ones and keeps 6 (green). Only those 6 go to the AI, small and in one call. That's why a whole check costs about a tenth of a cent."
+      }
+    ],
     "links": [
       { "label": "Repo", "url": "https://github.com/casparroederattum/LauzHack_AXA" }
     ]
+  },
+  {
+    "title": "Body Hand Grid",
+    "line": "Stand in front of the camera and turn into a figure of white blocks, fingers included.",
+    "tags": ["Python", "MediaPipe", "OpenCV", "Computer vision"],
+    "image": {
+      "src": "img/body-hand-grid.webp", "width": 1200, "height": 675,
+      "alt": "Black grid with a person drawn in white blocks, one arm raised; the small camera picture in the corner shows the real person with the detected skeleton."
+    },
+    "more": [
+      "A Mac app that turns your whole body into a grid of white blocks on black, live from the camera. Up to two people and four hands at once.",
+      "Two models run side by side: one for the body (33 points) and one for each hand (21 points). Where the hand model finds a real hand near a wrist, it replaces the body model's rough guess. So the palm is filled and the fingers are thin lines.",
+      "Every size scales with your shoulder width, so the figure looks the same whether you stand close or far away. It also counts raised fingers, kept steady over the last five frames, even when the hand is turned.",
+      "Everything runs on the laptop: nothing goes over the internet, nothing is recorded.",
+      "It started as two small projects, one for the body and one for the hands. This one puts them together."
+    ],
+    "links": []
   },
   {
     "title": "Less",
