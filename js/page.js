@@ -55,7 +55,6 @@
   function openProject(p, card) {
     lastCard = card;
     document.getElementById("sheet-title").textContent = p.title;
-    fillTags(document.getElementById("sheet-tags"), p.tags);
     var body = document.getElementById("sheet-body");
     body.replaceChildren();
     (p.more || []).forEach(function (s) { body.appendChild(make("p", null, s)); });
@@ -99,9 +98,27 @@
     return img;
   }
 
-  function fillTags(ul, tags) {
-    ul.replaceChildren();
-    (tags || []).forEach(function (t) { ul.appendChild(make("li", null, t)); });
+  function cardFor(p, i) {
+    var li = make("li", "reveal");
+    li.style.transitionDelay = (i % 2) * 80 + "ms"; // neighbours arrive one after another
+    // <article> keeps the heading a real heading; the title button opens the overlay.
+    var card = make("article", "card");
+    if (p.image) {
+      var cover = picture(p.image, "lazy");
+      cover.className = "cover";
+      card.appendChild(cover);
+    }
+    var h4 = make("h4");
+    var open = make("button", null, p.title);
+    open.type = "button";
+    open.setAttribute("aria-haspopup", "dialog");
+    open.addEventListener("click", function () { openProject(p, open); });
+    h4.appendChild(open);
+    card.appendChild(h4);
+    card.appendChild(make("p", null, p.line));
+    card.appendChild(make("span", "more", "Read more"));
+    li.appendChild(card);
+    return li;
   }
 
   if (dialog) {
@@ -114,34 +131,23 @@
   fetch("projects.json")
     .then(function (r) { return r.json(); })
     .then(function (projects) {
-      var list = document.getElementById("cards");
-      projects.forEach(function (p, i) {
-        var li = make("li", "reveal");
-        li.style.transitionDelay = (i % 2) * 80 + "ms"; // neighbours arrive one after another
-        // <article> keeps the heading a real heading; the title button opens the overlay.
-        var card = make("article", "card");
-        if (p.image) {
-          card.classList.add("has-cover");
-          var cover = picture(p.image, "lazy");
-          cover.className = "cover";
-          card.appendChild(cover);
-        }
-        var h3 = make("h3");
-        var open = make("button", null, p.title);
-        open.type = "button";
-        open.setAttribute("aria-haspopup", "dialog");
-        open.addEventListener("click", function () { openProject(p, open); });
-        h3.appendChild(open);
-        card.appendChild(h3);
-        card.appendChild(make("p", null, p.line));
-        var tags = make("ul", "tags");
-        fillTags(tags, p.tags);
-        card.appendChild(tags);
-        card.appendChild(make("span", "more", "Read more"));
-        li.appendChild(card);
-        list.appendChild(li);
-        reveal(li);
+      // Projects with a "group" are shown together under that name, groups in the order they
+      // first appear in projects.json; projects without one come last, under "More projects".
+      var box = document.getElementById("cards");
+      var groups = [], byName = {};
+      projects.forEach(function (p) {
+        var name = p.group || "More projects";
+        if (!byName[name]) { byName[name] = []; groups.push(name); }
+        byName[name].push(p);
       });
+      if (byName["More projects"]) { groups.splice(groups.indexOf("More projects"), 1); groups.push("More projects"); }
+      groups.forEach(function (name) {
+        box.appendChild(make("h3", "group reveal", name));
+        var list = make("ul", "cards");
+        byName[name].forEach(function (p, i) { list.appendChild(cardFor(p, i)); });
+        box.appendChild(list);
+      });
+      box.querySelectorAll(".reveal").forEach(reveal);
     })
     .catch(function () { /* the noscript-style fallback text is enough; nothing to break */ });
 

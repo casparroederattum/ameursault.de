@@ -1,36 +1,12 @@
 [
   {
-    "title": "Frugal Site Check",
-    "line": "Film a walk around your business, learn what a storm would hit first.",
-    "tags": ["LauzHack 2026", "AXA challenge", "Python", "Multimodal AI"],
-    "image": {
-      "src": "img/frugal-site-check.webp", "width": 1200, "height": 675,
-      "alt": "Start of the Frugal Site Check report: \"Have your site checked before the next storm\", with hail and water risk for the address."
-    },
-    "more": [
-      "Built with my team at LauzHack 2026 for AXA's challenge \"Frugal use of Multimodal AI\".",
-      "A business owner films a short walk around their site and enters the address. The app tells them what a storm would hit first, and what to do about it before the storm comes.",
-      "Free code does most of the work: the official Swiss hazard maps decide what is worth looking for, and a small detector on the laptop finds vehicles and blurs people before any image leaves the computer.",
-      "Paid AI only looks where the map says it matters: one cheap call for all key frames, a stronger model only for the unclear ones. A check costs about a tenth of a US cent.",
-      "What I learned: a small test set, labelled by hand, beats a good feeling. It showed us false alarms the demo never did, like a bedroom window taken for blinds."
-    ],
-    "gallery": [
-      {
-        "src": "img/frugal-frames.webp", "width": 1614, "height": 198,
-        "alt": "Film strip of a short walk past a bus: 24 frames, 6 of them framed in green as picked, the rest greyed out as blurry, dark or with a sharper one nearby.",
-        "caption": "This is where it gets frugal. A 12-second walk has 360 frames. Free code checks 24 of them, drops the blurry, dark and repeated ones and keeps 6 (green). Only those 6 go to the AI, small and in one call. That's why a whole check costs about a tenth of a cent."
-      }
-    ],
-    "links": [
-      { "label": "Repo", "url": "https://github.com/casparroederattum/LauzHack_AXA" }
-    ]
-  },
-  {
     "title": "Body Hand Grid",
+    "group": "Computer Vision",
     "line": "Stand in front of the camera and turn into a figure of white blocks, fingers included.",
-    "tags": ["Python", "MediaPipe", "OpenCV", "Computer vision"],
     "image": {
-      "src": "img/body-hand-grid.webp", "width": 1200, "height": 675,
+      "src": "img/body-hand-grid.webp",
+      "width": 1200,
+      "height": 675,
       "alt": "Black grid with a person drawn in white blocks, one arm raised; the small camera picture in the corner shows the real person with the detected skeleton."
     },
     "more": [
@@ -43,9 +19,58 @@
     "links": []
   },
   {
+    "title": "SO-101 robot arm",
+    "group": "Computer Vision",
+    "line": "Teaching a small open-source robot arm to move. Working on it right now (-:",
+    "image": {
+      "src": "img/so101.webp",
+      "width": 1200,
+      "height": 675,
+      "alt": "The SO-101 robot arm in my MuJoCo simulation, reaching up with its gripper open."
+    },
+    "more": [
+      "Working on it right now (-:",
+      "I'm learning robotics with the SO-101, a small open-source arm you can 3D-print.",
+      "So far it lives in simulation: I load the arm in MuJoCo, read each motor's limits so I never command past them, and make every joint wave in a slow sine. The picture is from there.",
+      "Next: the real arm, and teaching it a first task from demonstrations. The robot on this page is a rehearsal."
+    ],
+    "links": []
+  },
+  {
+    "title": "Frugal Site Check",
+    "line": "Film a walk around your business, learn what a storm would hit first.",
+    "image": {
+      "src": "img/frugal-site-check.webp",
+      "width": 1200,
+      "height": 675,
+      "alt": "Start of the Frugal Site Check report: \"Have your site checked before the next storm\", with hail and water risk for the address."
+    },
+    "more": [
+      "Built with my team at LauzHack 2026 for AXA's challenge \"Frugal use of Multimodal AI\".",
+      "A business owner films a short walk around their site and enters the address. The app tells them what a storm would hit first, and what to do about it before the storm comes.",
+      "Free code does most of the work: the official Swiss hazard maps decide what is worth looking for, and a small detector on the laptop finds vehicles and blurs people before any image leaves the computer.",
+      "Paid AI only looks where the map says it matters: one cheap call for all key frames, a stronger model only for the unclear ones. A check costs about a tenth of a US cent.",
+      "What I learned: a small test set, labelled by hand, beats a good feeling. It showed us false alarms the demo never did, like a bedroom window taken for blinds."
+    ],
+    "gallery": [
+      {
+        "src": "img/frugal-frames.webp",
+        "width": 1614,
+        "height": 198,
+        "alt": "Film strip of a short walk past a bus: 24 frames, 6 of them framed in green as picked, the rest greyed out as blurry, dark or with a sharper one nearby.",
+        "caption": "This is where it gets frugal. A 12-second walk has 360 frames. Free code checks 24 of them, drops the blurry, dark and repeated ones and keeps 6 (green). Only those 6 go to the AI, small and in one call. That's why a whole check costs about a tenth of a cent."
+      }
+    ],
+    "links": [
+      {
+        "label": "Repo",
+        "url": "https://github.com/casparroederattum/LauzHack_AXA"
+      }
+    ]
+  },
+  {
     "title": "Less",
     "line": "A calm Mac app that tells you, kindly, which tech you could let go of.",
-    "tags": ["macOS", "Swift", "Tech minimalism", "Local first"],
     "more": [
       "Less looks at the technology in your life (apps, time spent in them, what starts on its own, notifications, devices) and suggests, kindly, what you could turn down or let go of, and what to do instead.",
       "Everything stays on your Mac. Every permission is optional, Less asks for them one at a time, and a \"What Less knows\" screen shows exactly what was read, with a button that deletes it.",
@@ -57,22 +82,10 @@
   {
     "title": "Slides Chat",
     "line": "Ask questions about your lecture PDFs, get answers with page numbers.",
-    "tags": ["RAG", "Python", "Claude API", "Hackathon practice"],
     "more": [
       "Upload a lecture PDF, ask a question, get an answer that cites the pages it came from.",
       "A two-hour hackathon practice project to learn retrieval-augmented generation from the ground up: the PDF is cut into small pieces tagged with their page, embedded locally, and the four closest pieces go to Claude, which answers only from them.",
       "What I learned: the interesting part is the knobs. Chunk size and how many pieces you retrieve change the answers more than the prompt does, and the best test is a question that is not in the slides."
-    ],
-    "links": []
-  },
-  {
-    "title": "SO-101 robot learning",
-    "line": "Teaching a small open-source robot arm to move. In progress.",
-    "tags": ["In progress", "Robotics", "MuJoCo", "Python"],
-    "more": [
-      "I'm learning robotics with the SO-101, a small open-source arm you can 3D-print.",
-      "So far it lives in simulation: I load the arm in MuJoCo, read each motor's limits so I never command past them, and make every joint wave in a slow sine.",
-      "Next: the real arm, and teaching it a first task from demonstrations. The robot on this page is a rehearsal."
     ],
     "links": []
   }
