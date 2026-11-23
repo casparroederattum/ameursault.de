@@ -21,7 +21,7 @@
   {
     "title": "SO-101 robot arm",
     "group": "Computer Vision",
-    "line": "Teaching a small open-source robot arm to move. Working on it right now (-:",
+    "line": "Teaching a small open-source robot arm to move. The motors are bought, I'm building it in December. Working on it right now (-:",
     "image": {
       "src": "img/so101.webp",
       "width": 1200,
@@ -32,12 +32,13 @@
       "Working on it right now (-:",
       "I'm learning robotics with the SO-101, a small open-source arm you can 3D-print.",
       "So far it lives in simulation: I load the arm in MuJoCo, read each motor's limits so I never command past them, and make every joint wave in a slow sine. The picture is from there.",
-      "Next: the real arm, and teaching it a first task from demonstrations. The robot on this page is a rehearsal."
+      "The motors are already bought. In December I'm building the real arm, and then I'll teach it a first task from demonstrations. The robot on this page is a rehearsal."
     ],
     "links": []
   },
   {
     "title": "Frugal Site Check",
+    "group": "Computer Vision",
     "line": "Film a walk around your business, learn what a storm would hit first.",
     "image": {
       "src": "img/frugal-site-check.webp",
