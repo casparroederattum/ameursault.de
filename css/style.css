@@ -186,6 +186,8 @@ button { font: inherit; color: inherit; }
 .stage .line { fill: none; stroke: var(--ink); stroke-width: 2; }
 .stage .part { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
 .stage .led { fill: var(--orange); }
+/* Split cells keep a constant rim width however small they get. */
+.stage .cell-rim { fill: none; stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .stage .link { stroke: var(--ink); stroke-width: 13; stroke-linecap: round; }
 .stage .link-in { stroke: var(--paper); stroke-width: 7; stroke-linecap: round; }
 .stage .joint { fill: var(--paper); stroke: var(--ink); stroke-width: 2.5; }

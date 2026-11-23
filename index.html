@@ -88,13 +88,19 @@
 
         <figure class="stage">
           <svg id="arm-scene" viewBox="0 0 420 290" role="img" aria-labelledby="scene-title">
-            <title id="scene-title">A small robot arm picks up my portrait, swings it across and drops it. It bounces.</title>
+            <title id="scene-title">A small robot arm picks up my portrait and drops it. It bounces, splits into little cells and they zoom off to the right.</title>
 
-            <!-- My face. JS moves this group; the markup shows where it ends up. -->
+            <!-- My face. JS moves this group; without JS it simply sits here. -->
             <g id="face" transform="translate(330 226)">
               <image href="img/face.webp" x="-44" y="-44" width="88" height="88" />
               <circle class="line" r="44" />
             </g>
+
+            <!-- The face after it splits (cell-splitting, agar-style): four copies JS scales and moves. -->
+            <g class="cell" id="c0" opacity="0"><image href="img/face.webp" x="-44" y="-44" width="88" height="88" /><circle class="cell-rim" r="44" /></g>
+            <g class="cell" id="c1" opacity="0"><image href="img/face.webp" x="-44" y="-44" width="88" height="88" /><circle class="cell-rim" r="44" /></g>
+            <g class="cell" id="c2" opacity="0"><image href="img/face.webp" x="-44" y="-44" width="88" height="88" /><circle class="cell-rim" r="44" /></g>
+            <g class="cell" id="c3" opacity="0"><image href="img/face.webp" x="-44" y="-44" width="88" height="88" /><circle class="cell-rim" r="44" /></g>
 
             <!-- Robot arm: base, two links, two-finger gripper. My own drawing, SO-101 vibes. -->
             <rect class="part" x="58" y="250" width="64" height="20" rx="3" />
