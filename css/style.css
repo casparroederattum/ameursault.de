@@ -140,10 +140,8 @@ button { font: inherit; color: inherit; }
   letter-spacing: -0.035em;
   text-transform: uppercase;
 }
-.tags { display: flex; flex-wrap: wrap; gap: 4px 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px 1.6em; }
 .tags li { font-size: 0.72rem; }
-/* Dot after each tag (not before), so a wrapped line never starts with a stray dot. */
-.tags li:not(:last-child)::after { content: "·"; padding: 0 0.7em; color: var(--orange); }
 .about { padding-top: 8px; }
 .about p { font-size: 1.2rem; }
 
@@ -336,6 +334,31 @@ h2 {
 }
 
 /* ---------- Impressum / Datenschutz ---------- */
+/* Writing: the way to the reading list. */
+.reading-link {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: 40px; padding: 22px 24px;
+  background: var(--card); border: 1px solid var(--line);
+  text-decoration: none;
+  transition: border-color 0.25s, transform 0.25s var(--ease);
+}
+.reading-title { font-family: var(--head); font-weight: 700; font-size: 1.55rem; letter-spacing: -0.02em; line-height: 1.1; }
+.reading-sub { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.reading-sub::after { content: " →"; color: var(--orange); }
+@media (hover: hover) {
+  .reading-link:hover { border-color: var(--ink); transform: translateY(-3px); }
+  .reading-link:hover .reading-title { color: var(--orange); }
+}
+
+/* Reading list page */
+.books { margin-top: 8px; border-top: 1px solid var(--line); }
+.book { padding: 28px 0; border-bottom: 1px solid var(--line); }
+.books .book h2 { margin: 0 0 6px; font-size: clamp(1.4rem, 5vw, 1.8rem); line-height: 1.1; }
+.book .by { margin: 0 0 14px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.book .by span + span::before { content: ""; display: inline-block; width: 6px; height: 6px; margin: 0 10px; border-radius: 50%; background: var(--orange); vertical-align: 0.15em; }
+.book p.review { margin: 0; font-size: 1.1rem; }
+.books .soon { padding: 28px 0; font-family: var(--head); font-weight: 600; font-size: 1.4rem; }
+
 .legal { max-width: 720px; padding-top: 48px; padding-bottom: 96px; }
 .legal h1 { font-size: clamp(2.4rem, 10vw, 4rem); font-weight: 700; line-height: 1; margin: 24px 0 32px; }
 .legal h2 { font-size: 1.3rem; margin: 36px 0 10px; }
