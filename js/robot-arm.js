@@ -148,21 +148,26 @@
   }
 
   // --- playback ---
-  var start = 0, frame = 0;
+  // Our own clock: it only moves while frames are actually drawn, and never jumps more
+  // than 1/20 s per frame. So if the page loads in a background tab (a link opened from
+  // a chat app, say), the show waits instead of being over before anyone looks.
+  var t = 0, last = 0, frame = 0, started = false, finished = false;
   function tick(now) {
-    var t = (now - start) / 1000;
+    if (last) t += Math.min((now - last) / 1000, 0.05);
+    last = now;
     draw(Math.min(t, END));
-    frame = t < END ? requestAnimationFrame(tick) : 0;
+    if (t < END) frame = requestAnimationFrame(tick);
+    else { frame = 0; finished = true; }
   }
   function play() {
-    draw(0);
-    start = performance.now();
+    if (started || finished) return;
+    started = true;
     frame = requestAnimationFrame(tick);
   }
   function skip() {
-    if (!frame) return;
+    if (finished) return;
     cancelAnimationFrame(frame);
-    frame = 0;
+    frame = 0; finished = true;
     draw(END);
   }
 
@@ -170,8 +175,27 @@
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (calm) { draw(SETTLED); return; }
 
+  draw(0); // start pose: portrait on the floor, arm swung away
+
+  // Wait for the photo (so the arm never grabs an empty circle), at most 2 seconds.
+  var photoReady = new Promise(function (done) {
+    var img = new Image();
+    img.onload = img.onerror = done;
+    img.src = "img/face.webp";
+    setTimeout(done, 2000);
+  });
+
+  // Start only once the scene is actually on screen (half of it at least).
+  function startWhenSeen() {
+    if (!("IntersectionObserver" in window)) { play(); return; }
+    var seen = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { seen.disconnect(); play(); }
+    }, { threshold: 0.5 });
+    seen.observe(svg);
+  }
+  photoReady.then(startWhenSeen);
+
   // Plays once per visit. Click anywhere (or Esc) jumps to the end.
   document.addEventListener("click", skip);
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") skip(); });
-  play();
 })();
