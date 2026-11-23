@@ -1,6 +1,6 @@
 // Reading list: two columns of books from books.json, in the order they are listed there.
 // "status": "reading" puts a book under "Reading now", everything else goes under "Read".
-// An empty "review" shows "Review soon". Built with textContent, never innerHTML.
+// A review shows only when there is one. Built with textContent, never innerHTML.
 (function () {
   function make(tag, cls, text) {
     var n = document.createElement(tag);
@@ -24,7 +24,6 @@
     li.appendChild(make("h3", null, b.title));
     li.appendChild(make("p", "by", b.author));
     if (b.review) li.appendChild(make("p", "review", b.review));
-    else if (b.status !== "reading") li.appendChild(make("p", "review-soon", "Review soon"));
     return li;
   }
 
