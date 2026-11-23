@@ -33,5 +33,6 @@ With no feed yet, `posts.json` stays `[]` and the page shows "Writing soon.".
 
 ## Credits
 
-Font: Oswald by The Oswald Project Authors, SIL Open Font License 1.1 (`fonts/OFL.txt`),
-subset to Latin and self-hosted. The boat is my own linocut.
+Fonts (same as my LauzHack project), all SIL Open Font License 1.1, subset to Latin and
+self-hosted: Inter Tight (headings), Source Sans 3 (text), Spline Sans Mono (labels).
+Licences in `fonts/OFL-*.txt`. The orange oar dots come from my own linocut of a rowing boat.

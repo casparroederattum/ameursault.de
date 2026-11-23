@@ -105,7 +105,7 @@
         var tags = make("ul", "tags");
         fillTags(tags, p.tags);
         card.appendChild(tags);
-        card.appendChild(make("span", "more", "Read more +"));
+        card.appendChild(make("span", "more", "Read more"));
         li.appendChild(card);
         list.appendChild(li);
         reveal(li);

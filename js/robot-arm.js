@@ -1,4 +1,4 @@
-// Robot arm: picks up my face, drops it in a bucket, I peek out. About 4 seconds.
+// Robot arm: picks up my face, swings it across and drops it; it bounces. Plays once, about 4 seconds.
 // We only ever say where the gripper (the "wrist") should be; simple two-link
 // inverse kinematics works out where the elbow goes. That keeps the timeline readable.
 (function () {
@@ -10,20 +10,20 @@
   var OPEN = 56, SHUT = 47;          // half the gap between the fingers
   var HOLD = 50;                     // face centre sits this far below the wrist
   var FLOOR_FACE = { x: 195, y: 226 };
-  var BUCKET_X = 330, PEEK_Y = 196;  // eyes just above the rim
-  var END = 3.9;                     // seconds
+  var DROP_X = 330;                  // where the face lands, on the same (invisible) floor
+  var END = 3.7;                     // seconds
 
   var P = {
     away:  { x: 70,  y: 30 },        // arm starts swung away
     above: { x: 195, y: 120 },
     pick:  { x: 195, y: 176 },
     lift:  { x: 275, y: -15 },       // control point of the arc
-    drop:  { x: BUCKET_X, y: 104 },
+    drop:  { x: DROP_X, y: 104 },
     rest:  { x: 150, y: 66 }
   };
 
   var el = {};
-  ["l1", "l1i", "l2", "l2i", "elbow", "grip", "fL", "fR", "face", "again"].forEach(function (id) {
+  ["l1", "l1i", "l2", "l2i", "elbow", "grip", "fL", "fR", "face"].forEach(function (id) {
     el[id] = document.getElementById(id);
   });
 
@@ -64,17 +64,18 @@
 
     if (t >= 1.4 && t < 2.55) {             // carried
       face = { x: wrist.x, y: wrist.y + HOLD };
-    } else if (t >= 2.55) {                 // fall, small bounce, then peek
-      var top = P.drop.y + HOLD;
-      var y = mix(top, 222, easeIn(part(t, 2.55, 2.9)));
-      if (t >= 2.9)  y = mix(222, 206, easeOut(part(t, 2.9, 3.05)));
-      if (t >= 3.05) y = mix(206, 216, easeIn(part(t, 3.05, 3.2)));
-      if (t >= 3.35) {
-        var p = part(t, 3.35, 3.85);
-        y = mix(216, PEEK_Y, easeOut(p));
-        tilt = Math.sin(p * Math.PI * 2) * 7 * (1 - p);   // a curious little wobble
+    } else if (t >= 2.55) {                 // fall, two bounces, settle
+      var top = P.drop.y + HOLD, floor = FLOOR_FACE.y;
+      var y = mix(top, floor, easeIn(part(t, 2.55, 2.9)));
+      if (t >= 2.9)  y = mix(floor, floor - 26, easeOut(part(t, 2.9, 3.05)));
+      if (t >= 3.05) y = mix(floor - 26, floor, easeIn(part(t, 3.05, 3.2)));
+      if (t >= 3.2)  y = mix(floor, floor - 8, easeOut(part(t, 3.2, 3.28)));
+      if (t >= 3.28) y = mix(floor - 8, floor, easeIn(part(t, 3.28, 3.36)));
+      if (t >= 3.36) {
+        var p = part(t, 3.36, 3.7);
+        tilt = Math.sin(p * Math.PI * 2) * 6 * (1 - p);   // a small wobble as it settles
       }
-      face = { x: BUCKET_X, y: y };
+      face = { x: DROP_X, y: y };
     }
     return { wrist: wrist, grip: grip, face: face, tilt: tilt };
   }
@@ -120,9 +121,8 @@
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (calm) { draw(END); return; }
 
-  el.again.hidden = false;
-  el.again.addEventListener("click", function (ev) { ev.stopPropagation(); play(); });
-  document.addEventListener("click", skip);            // click anywhere skips
+  // Plays once per visit. Click anywhere (or Esc) jumps to the end.
+  document.addEventListener("click", skip);
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") skip(); });
   play();
 })();
