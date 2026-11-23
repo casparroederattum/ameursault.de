@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caspar Röder</title>
+  <meta name="description" content="Caspar Röder studies Information Engineering at TUM Campus Heilbronn, builds something every week and writes about what he learns.">
+  <link rel="canonical" href="https://ameursault.de/">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Link previews (LinkedIn, WhatsApp, Slack...) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ameursault.de/">
+  <meta property="og:title" content="Caspar Röder">
+  <meta property="og:description" content="Information Engineering at TUM Heilbronn. I build something every week and write about what I learn.">
+  <meta property="og:image" content="https://ameursault.de/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Caspar Röder, round portrait next to his name.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+  <!-- Preload the one font file so the big name does not jump when it arrives. -->
+  <link rel="preload" href="fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Tells the CSS that JS runs, so "fade in on scroll" never hides content for no-JS visitors. -->
+  <script>document.documentElement.classList.add("js")</script>
+  <script src="js/robot-arm.js" defer></script>
+  <script src="js/page.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="page">
+  <!-- The hull of the boat from my linocut: bow, a long straight middle, stern. -->
+  <div class="hull" aria-hidden="true">
+    <svg class="bow" viewBox="0 0 40 160" preserveAspectRatio="none">
+      <path d="M20 0 C22 50 39 95 39 160 M20 0 C18 50 1 95 1 160" />
+    </svg>
+    <div class="mid"></div>
+    <svg class="stern" viewBox="0 0 40 160" preserveAspectRatio="none">
+      <path d="M39 0 C39 65 22 110 20 160 M1 0 C1 65 18 110 20 160" />
+    </svg>
+  </div>
+
+  <main id="main">
+    <!-- Seat 1 -->
+    <section class="sec hero" id="hello" aria-labelledby="name">
+      <div class="oar"><span class="seat"></span><span class="label">01 · Hello</span></div>
+
+      <div class="hero-grid">
+        <h1 id="name" class="name">Caspar Röder</h1>
+
+        <ul class="tags" aria-label="About me in short">
+          <li>Information Engineering</li>
+          <li>TUM Campus Heilbronn</li>
+          <li>Healthcare, eventually</li>
+        </ul>
+
+        <figure class="stage">
+          <svg id="arm-scene" viewBox="0 0 420 290" role="img" aria-labelledby="scene-title">
+            <title id="scene-title">A small robot arm picks up my portrait and drops it into a bucket. I peek out.</title>
+            <line class="floor" x1="0" y1="270" x2="420" y2="270" />
+
+            <!-- Bucket, back half of the rim: drawn first so the face can sit inside. -->
+            <path class="line" d="M270 196 A60 10 0 0 1 390 196" />
+
+            <!-- My face. JS moves this group; the markup shows where it ends up. -->
+            <g id="face" transform="translate(330 196)">
+              <image href="img/face.webp" x="-44" y="-44" width="88" height="88" />
+              <circle class="line" r="44" />
+            </g>
+
+            <!-- Bucket, front half: white fill hides the part of the face that is inside. -->
+            <path class="bucket" d="M270 196 A60 10 0 0 0 390 196 L378 266 Q330 276 282 266 Z" />
+            <path class="line thin" d="M276 214 Q330 256 384 214" />
+
+            <!-- Robot arm: base, two links, two-finger gripper. My own drawing, SO-101 vibes. -->
+            <rect class="part" x="58" y="250" width="64" height="20" rx="3" />
+            <rect class="part" x="78" y="200" width="24" height="52" rx="3" />
+            <circle class="led" cx="110" cy="260" r="3.5" />
+            <line id="l1" class="link" x1="90" y1="190" x2="20" y2="68.7" />
+            <line id="l1i" class="link-in" x1="90" y1="190" x2="20" y2="68.7" />
+            <line id="l2" class="link" x1="20" y1="68.7" x2="150" y2="66" />
+            <line id="l2i" class="link-in" x1="20" y1="68.7" x2="150" y2="66" />
+            <circle class="joint" cx="90" cy="190" r="10" />
+            <circle id="elbow" class="joint" cx="20" cy="68.7" r="8" />
+            <g id="grip" transform="translate(150 66)">
+              <line class="palm" x1="-62" y1="4" x2="62" y2="4" />
+              <g id="fL" transform="translate(-56 0)"><path class="finger" d="M0 4 V48 L7 56" /></g>
+              <g id="fR" transform="translate(56 0)"><path class="finger" d="M0 4 V48 L-7 56" /></g>
+              <circle class="joint" r="6" />
+            </g>
+          </svg>
+          <button class="again" type="button" id="again" hidden>
+            again
+            <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8a5 5 0 1 0 1.5-3.5M3 2v3h3" /></svg>
+          </button>
+        </figure>
+
+        <div class="about">
+          <p>I'm Caspar. I study Information Engineering at TUM Campus Heilbronn, after a detour through business studies in Münster and public sector consulting at KPMG.</p>
+          <p>It started in 10th grade with a weather station that refused to work, until a few adults gave us their time and patience with nothing to gain from it. Since then, technology has meant one thing to me: a lever for helping people.</p>
+          <p>The place where I think that lever matters most is healthcare. That's where I want to build, eventually my own company. Until then, I build something every week and write about what I learn.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seat 2 -->
+    <section class="sec" id="projects" aria-labelledby="projects-h">
+      <div class="oar"><span class="seat"></span><span class="label">02 · Things I built</span></div>
+      <h2 id="projects-h">Projects</h2>
+      <!-- Filled from projects.json by js/page.js -->
+      <ul class="cards" id="cards"></ul>
+      <noscript><p>The project list needs JavaScript. Everything is also on <a href="https://github.com/casparroederattum">GitHub</a>.</p></noscript>
+    </section>
+
+    <!-- Seat 3 -->
+    <section class="sec" id="writing" aria-labelledby="writing-h">
+      <div class="oar"><span class="seat"></span><span class="label">03 · Notes</span></div>
+      <h2 id="writing-h">Writing</h2>
+      <!-- Filled from posts.json; this is what shows while there are no posts. -->
+      <ol class="posts reveal" id="posts">
+        <li class="soon">Writing soon.</li>
+      </ol>
+      <a class="button reveal" id="substack-cta" href="https://substack.com/@casparrder1">Follow on Substack</a>
+    </section>
+
+    <!-- Seat 4 -->
+    <section class="sec" id="links" aria-labelledby="links-h">
+      <div class="oar"><span class="seat"></span><span class="label">04 · Say hi</span></div>
+      <h2 id="links-h">Links</h2>
+      <ul class="links reveal">
+        <li><a href="https://github.com/casparroederattum">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/caspar-r%C3%B6der-790667312/">LinkedIn</a></li>
+        <li><a href="https://substack.com/@casparrder1">Substack</a></li>
+        <li><a href="mailto:hello@ameursault.de">Email</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Seat 5 -->
+  <footer class="sec foot" id="colophon">
+    <div class="oar"><span class="seat"></span><span class="label">05 · Stern</span></div>
+    <p class="small">© 2026 Caspar Röder · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+    <p class="small muted">No cookies, no trackers. The boat is from one of my linocut prints.</p>
+  </footer>
+</div>
+
+<!-- One reusable overlay for the project details. <dialog> gives Esc + focus handling for free. -->
+<dialog class="sheet" id="project-dialog" aria-labelledby="sheet-title">
+  <div class="sheet-in">
+    <button class="close" type="button" id="sheet-close" aria-label="Close">×</button>
+    <h3 id="sheet-title"></h3>
+    <ul class="tags" id="sheet-tags"></ul>
+    <div id="sheet-body"></div>
+    <p class="sheet-links" id="sheet-links"></p>
+  </div>
+</dialog>
+</body>
+</html>

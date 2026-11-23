@@ -1,0 +1,51 @@
+[
+  {
+    "title": "Frugal Site Check",
+    "line": "Film a walk around your business, learn what a storm would hit first.",
+    "tags": ["LauzHack 2026", "AXA challenge", "Python", "Multimodal AI"],
+    "more": [
+      "Built with my team at LauzHack 2026 for AXA's challenge \"Frugal use of Multimodal AI\".",
+      "A business owner films a short walk around their site and enters the address. The app tells them what a storm would hit first, and what to do about it before the storm comes.",
+      "Free code does most of the work: the official Swiss hazard maps decide what is worth looking for, and a small detector on the laptop finds vehicles and blurs people before any image leaves the computer.",
+      "Paid AI only looks where the map says it matters: one cheap call for all key frames, a stronger model only for the unclear ones. A check costs about a tenth of a US cent.",
+      "What I learned: a small test set, labelled by hand, beats a good feeling. It showed us false alarms the demo never did, like a bedroom window taken for blinds."
+    ],
+    "links": [
+      { "label": "Repo", "url": "https://github.com/casparroederattum/LauzHack_AXA" }
+    ]
+  },
+  {
+    "title": "Less",
+    "line": "A calm Mac app that tells you, kindly, which tech you could let go of.",
+    "tags": ["macOS", "Swift", "Tech minimalism", "Local first"],
+    "more": [
+      "Less looks at the technology in your life (apps, time spent in them, what starts on its own, notifications, devices) and suggests, kindly, what you could turn down or let go of, and what to do instead.",
+      "Everything stays on your Mac. Every permission is optional, Less asks for them one at a time, and a \"What Less knows\" screen shows exactly what was read, with a button that deletes it.",
+      "It is honest about its limits: where macOS gives no public way to see something, the app says so instead of guessing.",
+      "If a small local model runs on the Mac, Less uses it only to word its suggestions more nicely."
+    ],
+    "links": []
+  },
+  {
+    "title": "Slides Chat",
+    "line": "Ask questions about your lecture PDFs, get answers with page numbers.",
+    "tags": ["RAG", "Python", "Claude API", "Hackathon practice"],
+    "more": [
+      "Upload a lecture PDF, ask a question, get an answer that cites the pages it came from.",
+      "A two-hour hackathon practice project to learn retrieval-augmented generation from the ground up: the PDF is cut into small pieces tagged with their page, embedded locally, and the four closest pieces go to Claude, which answers only from them.",
+      "What I learned: the interesting part is the knobs. Chunk size and how many pieces you retrieve change the answers more than the prompt does, and the best test is a question that is not in the slides."
+    ],
+    "links": []
+  },
+  {
+    "title": "SO-101 robot learning",
+    "line": "Teaching a small open-source robot arm to move. In progress.",
+    "tags": ["In progress", "Robotics", "MuJoCo", "Python"],
+    "more": [
+      "I'm learning robotics with the SO-101, a small open-source arm you can 3D-print.",
+      "So far it lives in simulation: I load the arm in MuJoCo, read each motor's limits so I never command past them, and make every joint wave in a slow sine.",
+      "Next: the real arm, and teaching it a first task from demonstrations. The robot on this page is a rehearsal."
+    ],
+    "links": []
+  }
+]

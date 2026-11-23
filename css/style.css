@@ -1,0 +1,316 @@
+/* ameursault.de: black and white, one accent from the LauzHack project (AXA blue). */
+
+@font-face {
+  font-family: "Oswald";
+  src: url("../fonts/oswald-latin.woff2") format("woff2");
+  font-weight: 200 700; /* one variable file covers every weight */
+  font-display: swap;
+}
+
+:root {
+  --ink: #000;
+  --paper: #fff;
+  --accent: #00008f;   /* main accent, from frugal-site-check */
+  --accent-2: #3b3fd8; /* second colour, only for focus rings */
+
+  /* The boat: width of the left column, the hull inside it, and the seats. */
+  --spine: 44px;
+  --hull: 26px;
+  --seat: 14px;
+  --gutter: 16px;
+  --line: 1.25px;
+}
+@media (min-width: 700px) {
+  :root { --spine: 88px; --hull: 40px; --seat: 20px; }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 350 1.1875rem/1.55 "Oswald", "Arial Narrow", sans-serif;
+  overflow-x: hidden;
+}
+p { margin: 0 0 1em; max-width: 60ch; }
+h1, h2, h3 { margin: 0; text-transform: uppercase; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+button { font: inherit; color: inherit; }
+
+.skip {
+  position: absolute; left: 16px; top: -60px; z-index: 10;
+  background: var(--ink); color: var(--paper); padding: 8px 14px;
+}
+.skip:focus { top: 12px; }
+
+/* ---------- page + boat ---------- */
+.page {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Bow and stern keep a fixed height; only the straight middle stretches with the page. */
+.hull {
+  position: absolute;
+  top: 24px; bottom: 24px;
+  left: calc(var(--gutter) + (var(--spine) - var(--hull)) / 2);
+  width: var(--hull);
+  display: flex; flex-direction: column;
+  pointer-events: none;
+}
+.hull svg { width: 100%; height: 120px; flex: none; overflow: visible; }
+.hull path { fill: none; stroke: var(--ink); stroke-width: var(--line); vector-effect: non-scaling-stroke; }
+.hull .mid {
+  flex: 1;
+  margin: 0 calc(var(--hull) / 40 * 1 - var(--line) / 2);
+  border-left: var(--line) solid var(--ink);
+  border-right: var(--line) solid var(--ink);
+}
+
+.sec {
+  position: relative;
+  margin-left: var(--spine);
+  padding: 80px 0 16px;
+}
+.hero { padding-top: 150px; } /* the first seat sits just below the bow */
+
+/* An oar = the thin rule that opens each section. Its seat sits on the hull. */
+.oar {
+  position: relative;
+  display: flex; align-items: center;
+  min-height: var(--seat);
+  margin-bottom: 32px;
+}
+.oar::before { /* the shaft */
+  content: "";
+  position: absolute; top: 50%;
+  left: calc(var(--spine) / -2); right: 16px;
+  border-top: 1px solid var(--ink);
+}
+.oar::after { /* the blade */
+  content: "";
+  position: absolute; top: 50%; right: 0;
+  width: 22px; height: 8px; margin-top: -4px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.seat {
+  position: absolute; z-index: 1;
+  left: calc(var(--spine) / -2 - var(--seat) / 2);
+  width: var(--seat); height: var(--seat);
+  border: var(--line) solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+}
+.label {
+  position: relative; z-index: 1;
+  padding-right: 12px;
+  background: var(--paper);
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+/* Wide screens have room for the oar on the other side too, like in the print. */
+@media (min-width: 1140px) {
+  .seat::before {
+    content: ""; position: absolute; top: 50%; right: 100%;
+    width: 72px; border-top: 1px solid var(--ink);
+  }
+  .seat::after {
+    content: ""; position: absolute; top: 50%; right: calc(100% + 64px);
+    width: 22px; height: 8px; margin-top: -4px;
+    border-radius: 50%; background: var(--ink);
+  }
+}
+
+/* Accent only where you are (or point): the seat and oar of the current section. */
+.oar, .oar::before, .oar::after, .seat, .seat::before, .seat::after {
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+.sec.is-here .seat, .oar:hover .seat { background: var(--accent); border-color: var(--accent); }
+.sec.is-here .oar::before, .oar:hover::before,
+.sec.is-here .seat::before, .oar:hover .seat::before { border-color: var(--accent); }
+.sec.is-here .oar::after, .oar:hover::after,
+.sec.is-here .seat::after, .oar:hover .seat::after { background: var(--accent); }
+.sec.is-here .label { color: var(--accent); }
+
+/* ---------- hero ---------- */
+.hero-grid { display: grid; gap: 24px; }
+.name {
+  font-weight: 700;
+  font-size: clamp(3.4rem, 19vw, 8rem);
+  line-height: 1.04; /* room for the dots on the Ö when the name wraps */
+  letter-spacing: -0.005em;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 4px 0; }
+.tags li {
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+/* Dot after each tag (not before), so a wrapped line never starts with a stray dot. */
+.tags li:not(:last-child)::after { content: "·"; padding: 0 0.6em; }
+/* Inside cards and the overlay, tags are small boxes instead. */
+.card .tags, .sheet .tags { gap: 6px; }
+.card .tags li, .sheet .tags li { border: 1px solid currentColor; padding: 1px 6px; }
+.card .tags li::after, .sheet .tags li::after { content: none; }
+.about { padding-top: 8px; }
+
+@media (min-width: 860px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 430px);
+    grid-template-areas: "name name" "tags tags" "about stage";
+    column-gap: 48px;
+  }
+  .name { grid-area: name; }
+  .tags { grid-area: tags; }
+  .about { grid-area: about; padding-top: 24px; }
+  .stage { grid-area: stage; align-self: start; margin-top: 24px; }
+}
+
+/* ---------- robot-arm stage ---------- */
+.stage { position: relative; margin: 0; max-width: 420px; }
+.stage svg { width: 100%; height: auto; overflow: visible; }
+.stage .floor { stroke: var(--ink); stroke-width: 1.5; }
+.stage .line { fill: none; stroke: var(--ink); stroke-width: 2; }
+.stage .thin { stroke-width: 1.25; }
+.stage .bucket { fill: var(--paper); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.stage .part { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
+.stage .led { fill: var(--accent); }
+.stage .link { stroke: var(--ink); stroke-width: 13; stroke-linecap: round; }
+.stage .link-in { stroke: var(--paper); stroke-width: 7; stroke-linecap: round; }
+.stage .joint { fill: var(--paper); stroke: var(--ink); stroke-width: 2.5; }
+.stage .palm { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+.stage .finger { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+
+.again {
+  position: absolute; top: 0; right: 0;
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 32px; padding: 4px 12px;
+  border: 1px solid var(--ink); background: var(--paper);
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer;
+}
+.again svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.again:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- section headings ---------- */
+h2 {
+  font-weight: 600;
+  font-size: clamp(2.2rem, 7vw, 3.6rem);
+  line-height: 1;
+  margin-bottom: 32px;
+}
+
+/* ---------- projects ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: flex; flex-direction: column; gap: 10px;
+  width: 100%; height: 100%; min-height: 200px;
+  padding: 20px;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.card h3 { font-size: 1.6rem; font-weight: 600; line-height: 1.05; }
+.card p { margin: 0; font-size: 1.05rem; line-height: 1.4; }
+.card .tags { margin-top: auto; }
+.card .tags li { font-size: 0.68rem; }
+.card .more {
+  align-self: flex-end;
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.card:hover, .card:focus-visible { border-color: var(--accent); color: var(--accent); }
+
+/* Project details overlay */
+.sheet {
+  width: min(640px, calc(100vw - 32px));
+  max-height: 85vh;
+  padding: 0;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--paper);
+}
+.sheet::backdrop { background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(2px); }
+.sheet-in { position: relative; padding: 32px 24px 24px; }
+.sheet h3 { font-size: clamp(1.8rem, 6vw, 2.6rem); font-weight: 600; line-height: 1; margin: 0 48px 12px 0; }
+.sheet .tags { margin-bottom: 20px; }
+.sheet p { font-size: 1.1rem; }
+.sheet-links a {
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  margin-right: 20px;
+}
+.close {
+  position: absolute; top: 8px; right: 8px;
+  width: 44px; height: 44px;
+  border: 0; background: none;
+  font-size: 2rem; line-height: 1; cursor: pointer;
+}
+.close:hover { color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .sheet[open] { animation: sheet-in 0.25s ease-out; }
+  @keyframes sheet-in { from { opacity: 0; transform: translateY(10px); } }
+}
+
+/* ---------- writing ---------- */
+.posts { margin-bottom: 28px; border-top: 1px solid var(--ink); }
+.posts li { border-bottom: 1px solid var(--ink); padding: 14px 0; }
+.posts a { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; text-decoration: none; }
+.posts time { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding-top: 0.35em; }
+.posts .soon { font-size: 1.4rem; text-transform: uppercase; }
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 1px solid var(--ink);
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.button:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+
+/* ---------- links ---------- */
+.links { display: flex; flex-wrap: wrap; gap: 14px 32px; }
+.links a {
+  font-size: 1rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+}
+.links a:hover { border-color: var(--accent); }
+
+/* ---------- footer (the stern needs room below the last seat) ---------- */
+.foot { padding-bottom: 150px; }
+.small { font-size: 0.9rem; margin-bottom: 0.4em; }
+
+/* ---------- fade-in on scroll (only when JS runs and motion is fine) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* ---------- Impressum / Datenschutz ---------- */
+.legal { max-width: 720px; padding-top: 48px; padding-bottom: 96px; }
+.legal h1 { font-size: clamp(2.4rem, 10vw, 4rem); font-weight: 700; line-height: 1; margin: 24px 0 32px; }
+.legal h2 { font-size: 1.3rem; margin: 36px 0 10px; }
+.legal p, .legal li { font-size: 1.05rem; }
+.legal ul { list-style: disc; padding-left: 1.2em; margin-bottom: 1em; }
+.back { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+.todo { background: none; color: var(--accent); border: 1px dashed var(--accent); padding: 0 4px; }
