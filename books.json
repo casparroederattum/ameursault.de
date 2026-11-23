@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "title": "Steve Jobs",
+    "author": "Walter Isaacson",
+    "cover": "img/books/steve-jobs.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "The Hard Thing About Hard Things",
+    "author": "Ben Horowitz",
+    "cover": "img/books/hard-thing.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "Made to Stick",
+    "author": "Chip Heath & Dan Heath",
+    "cover": "img/books/made-to-stick.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "Talk Like TED",
+    "author": "Carmine Gallo",
+    "cover": "img/books/talk-like-ted.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "Notes on Being a Man",
+    "author": "Scott Galloway",
+    "cover": "img/books/notes-on-being-a-man.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "The Algebra of Wealth",
+    "author": "Scott Galloway",
+    "cover": "img/books/algebra-of-wealth.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "Hard Drive: Bill Gates and the Making of the Microsoft Empire",
+    "author": "James Wallace & Jim Erickson",
+    "cover": "img/books/hard-drive.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "L'Étranger",
+    "author": "Albert Camus",
+    "cover": "img/books/etranger.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "Die Pest",
+    "author": "Albert Camus",
+    "cover": "img/books/die-pest.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "The Elements of Style",
+    "author": "William Strunk Jr. & E. B. White",
+    "cover": "img/books/elements-of-style.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "How to Win Friends and Influence People",
+    "author": "Dale Carnegie",
+    "cover": "img/books/win-friends.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "Zero to One",
+    "author": "Peter Thiel with Blake Masters",
+    "cover": "img/books/zero-to-one.webp",
+    "status": "read",
+    "review": ""
+  }
+]

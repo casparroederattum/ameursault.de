@@ -11,7 +11,7 @@ Hosted on GitHub Pages from the `main` branch.
 | change the About text       | `index.html`, the `<div class="about">` block            |
 | change colours              | `css/style.css`, the `:root` block at the top            |
 | connect my Substack         | `scripts/fetch_substack.py`, the `FEED_URL` line         |
-| add a book to the reading list | `books.json`: add `{ "title": "…", "author": "…", "read": "Nov 2026", "review": "about 100 words" }` at the top |
+| add a book to the reading list | `books.json`: `{ "title", "author", "cover": "img/books/….webp", "status": "read" or "reading", "review": "about 100 words" }`, covers 300×450 |
 
 Then commit and push. The site updates within a minute or two.
 

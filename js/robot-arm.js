@@ -1,13 +1,13 @@
 // Robot arm: picks up my face and drops it; it bounces, splits into cells (agar-style),
 // the cells zoom off to the right, and the face grows back at its old spot. Plays once,
-// under 8 seconds. After that the arm is yours: drag the orange joints, tap the gripper.
+// under 8 seconds. After that the arm is yours: drag the orange joints, tap the gripper,
+// and pick the face up and drop it again if you like.
 // During the show we only say where the gripper (the "wrist") should be; simple two-link
 // inverse kinematics works out where the elbow goes. That keeps the timeline readable.
 (function () {
   var svg = document.getElementById("arm-scene");
   if (!svg) return;
   var stage = svg.closest(".stage");
-  var hint = stage && stage.querySelector(".stage-hint");
 
   var SHOULDER = { x: 90, y: 190 };
   var L1 = 140, L2 = 130;            // upper arm, forearm
@@ -171,6 +171,9 @@
   // --- the arm is yours: three degrees of freedom ---
   // a1: shoulder angle (absolute), a2: elbow angle (relative to the upper arm), grip: finger gap.
   var live = false, a1 = 0, a2 = 0, grip = OPEN, gripTo = OPEN, gripFrame = 0;
+  // The face, once the arm is yours: lying somewhere on the floor, held, or falling.
+  // While held it keeps its offset (dx, dy) from the wrist.
+  var face = { x: HOME.x, y: HOME.y, held: false, dx: 0, dy: 0, vy: 0, fallFrame: 0 };
 
   function joints(n1, n2) {
     var e = { x: SHOULDER.x + L1 * Math.cos(n1), y: SHOULDER.y + L1 * Math.sin(n1) };
@@ -178,8 +181,14 @@
     return { e: e, w: w };
   }
   // Keep the arm above the floor (fingers included), out of the text above, and not folded onto itself.
+  // A held face has to stay above the floor and inside the picture as well.
   function allowed(j, n2) {
-    return Math.abs(n2) <= 2.6 && j.e.y <= FLOOR - 16 && j.w.y <= FLOOR - 60 && j.w.y >= -12 && j.e.y >= -12;
+    var ok = Math.abs(n2) <= 2.6 && j.e.y <= FLOOR - 16 && j.w.y <= FLOOR - 60 && j.w.y >= -12 && j.e.y >= -12;
+    if (ok && face.held) {
+      var fx = j.w.x + face.dx, fy = j.w.y + face.dy;
+      ok = fy <= HOME.y && fx >= R && fx <= 420 - R;
+    }
+    return ok;
   }
   function setAngles(n1, n2) {
     n1 = wrapAngle(n1); n2 = wrapAngle(n2);
@@ -191,11 +200,26 @@
   function drawLive() {
     var j = joints(a1, a2);
     drawArm(j.e, j.w, grip);
+    if (face.held) { face.x = j.w.x + face.dx; face.y = j.w.y + face.dy; }
+    el.face.setAttribute("transform", "translate(" + face.x + " " + face.y + ")");
+    el.face.setAttribute("opacity", 1);
     el["h-shoulder"].setAttribute("aria-valuenow", deg(-a1));
     el["h-elbow"].setAttribute("aria-valuenow", deg(-a2));
   }
   function setGrip(open) {
-    gripTo = open ? OPEN : CLOSED;
+    if (open) {
+      gripTo = OPEN;
+      if (face.held) { face.held = false; fall(); }   // let go: it drops
+    } else {
+      // Close on the face if it hangs between the fingers, else close all the way.
+      var w = joints(a1, a2).w, dx = face.x - w.x, dy = face.y - w.y;
+      if (!face.fallFrame && Math.abs(dx) < 26 && dy > 18 && dy < 80) {
+        face.held = true; face.dx = dx; face.dy = dy;
+        gripTo = SHUT;
+      } else {
+        gripTo = CLOSED;
+      }
+    }
     el["h-grip"].setAttribute("aria-checked", open ? "true" : "false");
     el["h-grip"].setAttribute("aria-label", open ? "Gripper open" : "Gripper closed");
     if (calm) { grip = gripTo; drawLive(); return; }
@@ -203,9 +227,37 @@
   }
   function stepGrip() {
     grip += (gripTo - grip) * 0.22;
+    if (face.held) {
+      // The closing fingers pull the face to the middle, hanging just below the palm.
+      var w = joints(a1, a2).w;
+      face.dx *= 0.78;
+      face.dy += (Math.min(HOLD, HOME.y - w.y) - face.dy) * 0.22;
+    }
     if (Math.abs(gripTo - grip) < 0.3) { grip = gripTo; gripFrame = 0; }
     else gripFrame = requestAnimationFrame(stepGrip);
     drawLive();
+  }
+
+  // A dropped face falls, bounces twice or so and lies still. Units: drawing pixels and seconds.
+  function fall() {
+    face.vy = 0;
+    if (calm) { face.y = HOME.y; drawLive(); return; }
+    var last = 0;
+    function step(now) {
+      var dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60;
+      last = now;
+      face.vy += 1600 * dt;
+      face.y += face.vy * dt;
+      if (face.y >= HOME.y) {
+        face.y = HOME.y;
+        face.vy = -face.vy * 0.4;
+        if (Math.abs(face.vy) < 70) { face.vy = 0; face.fallFrame = 0; drawLive(); return; }
+      }
+      drawLive();
+      face.fallFrame = requestAnimationFrame(step);
+    }
+    cancelAnimationFrame(face.fallFrame);
+    face.fallFrame = requestAnimationFrame(step);
   }
 
   function goLive() {
@@ -218,7 +270,6 @@
     drawLive();
     ["h-shoulder", "h-elbow", "h-grip"].forEach(function (id) { el[id].setAttribute("tabindex", "0"); });
     if (stage) stage.classList.add("live");
-    if (hint) hint.textContent = "Your turn: drag the orange joints, tap the gripper";
   }
 
   // Pointer position in the drawing's own coordinates.
