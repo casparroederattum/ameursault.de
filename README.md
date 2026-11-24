@@ -12,7 +12,7 @@ Hosted on GitHub Pages from the `main` branch.
 | change colours              | `css/style.css`, the `:root` block at the top            |
 | connect my Substack         | `scripts/fetch_substack.py`, the `FEED_URL` line         |
 | add a book to the reading list | `books.json`: `{ "title", "author", "cover": "img/books/….webp", "status": "read" or "reading", "review": "about 100 words" }`, covers 300×450 |
-| add a paper or video        | `finds.json`: `{ "kind": "Paper" or "Video", "title", "by", "url", "note", "image": { "src": "img/finds/….webp", "width": 640, "height": 360, "alt" }, "credit", "links": [extra links] }`, shown in the order listed; pictures 640×360 |
+| add a paper or video        | `finds.json`: `{ "kind": "Paper" or "Video", "title", "by", "url", "note", "image": { "src": "img/finds/….webp", "width": 640, "height": 360, "alt" }, "credit", "links": [extra links] }`, shown on `papers.html` in the order listed; pictures 640×360 |
 
 Then commit and push. The site updates within a minute or two.
 After changing `css/style.css` or a file in `js/`, raise the `?v=` number where the HTML pages link it, so browsers fetch the new version instead of a cached one.
