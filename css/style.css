@@ -180,7 +180,8 @@ button { font: inherit; color: inherit; }
 }
 
 /* ---------- robot-arm stage ---------- */
-.stage { position: relative; margin: 0; max-width: 420px; }
+/* z-index: the arm may swing over the text around it and stays on top. */
+.stage { position: relative; z-index: 2; margin: 0; max-width: 420px; }
 .stage svg { width: 100%; height: auto; overflow: visible; }
 .stage .line { fill: none; stroke: var(--ink); stroke-width: 2; }
 .stage .part { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }

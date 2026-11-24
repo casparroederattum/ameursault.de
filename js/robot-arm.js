@@ -180,10 +180,11 @@
     var w = { x: e.x + L2 * Math.cos(n1 + n2), y: e.y + L2 * Math.sin(n1 + n2) };
     return { e: e, w: w };
   }
-  // Keep the arm above the floor (fingers included), out of the text above, and not folded onto itself.
+  // Keep the arm above the floor (fingers included) and not folded onto itself. Upwards and sideways
+  // it may reach over the text around it; the stage sits on top of the page for that.
   // A held face has to stay above the floor and inside the picture as well.
   function allowed(j, n2) {
-    var ok = Math.abs(n2) <= 2.6 && j.e.y <= FLOOR - 16 && j.w.y <= FLOOR - 60 && j.w.y >= -12 && j.e.y >= -12;
+    var ok = Math.abs(n2) <= 2.6 && j.e.y <= FLOOR - 16 && j.w.y <= FLOOR - 60;
     if (ok && face.held) {
       var fx = j.w.x + face.dx, fy = j.w.y + face.dy;
       ok = fy <= HOME.y && fx >= R && fx <= 420 - R;
