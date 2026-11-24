@@ -81,7 +81,12 @@
       "It is honest about its limits: where macOS gives no public way to see something, the app says so instead of guessing.",
       "If a small local model runs on the Mac, Less uses it only to word its suggestions more nicely."
     ],
-    "links": []
+    "links": [
+      {
+        "label": "Repo",
+        "url": "https://github.com/casparroederattum/less"
+      }
+    ]
   },
   {
     "title": "Slides Chat",
