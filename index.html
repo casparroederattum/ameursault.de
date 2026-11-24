@@ -44,13 +44,13 @@
   <!-- Preload the two fonts visible first, so the big name and the About text do not jump. -->
   <link rel="preload" href="fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
 
   <!-- Tells the CSS that JS runs, so "fade in on scroll" never hides content for no-JS visitors. -->
   <script>document.documentElement.classList.add("js")</script>
-  <script src="js/robot-arm.js?v=4" defer></script>
-  <script src="js/page.js?v=4" defer></script>
-  <script src="js/pixels.js?v=4" defer></script>
+  <script src="js/robot-arm.js?v=5" defer></script>
+  <script src="js/page.js?v=5" defer></script>
+  <script src="js/pixels.js?v=5" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -172,9 +172,17 @@
       <div class="oar"><span class="seat"></span><span class="label">Notes</span></div>
       <h2 id="writing-h">Writing and Reading</h2>
       <!-- Filled from posts.json; this is what shows while there are no posts. -->
-      <ol class="posts reveal" id="posts">
-        <li class="soon">Learning it right now.</li>
-      </ol>
+      <!-- My first piece is a Substack note; the card opens it on Substack. -->
+      <a class="article reveal" href="https://substack.com/@casparrder1/note/c-395604427" target="_blank" rel="noopener">
+        <img class="article-pic" src="img/writing/epfl.webp" width="1200" height="675" loading="lazy" decoding="async"
+             alt="The big red EPFL letters on the lawn in front of a glass campus building in Lausanne, on a grey autumn day.">
+        <span class="article-text">
+          <span class="article-meta"><time datetime="2026-11-24">24 Nov 2026</time> · Substack</span>
+          <span class="article-title">I visited EPFL in Lausanne for a hackathon last weekend, and it got me thinking about Europe again.</span>
+          <span class="article-more">Read it on Substack ↗</span>
+        </span>
+      </a>
+      <ol class="posts reveal" id="posts"></ol>
       <a class="button reveal" id="substack-cta" href="https://substack.com/@casparrder1">Follow on Substack</a>
       <a class="reading-link reveal" href="reading.html">
         <span class="reading-title">Reading list</span>

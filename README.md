@@ -7,7 +7,7 @@ Hosted on GitHub Pages from the `main` branch.
 
 | I want to…                  | Edit                                                     |
 | --------------------------- | -------------------------------------------------------- |
-| change a project            | `projects.json` (projects without a `group` show as small pills under "More projects"; title, optional `topic` shown as a small oval on the card, `group`, one line, cover `image`, longer text, `gallery` pictures, links) |
+| change a project            | `projects.json` (projects without a `group` show as small pills under "More projects"; title, `group`, one line, cover `image`, longer text, `gallery` pictures, links) |
 | change the About text       | `index.html`, the `<div class="about">` block            |
 | change colours              | `css/style.css`, the `:root` block at the top            |
 | connect my Substack         | `scripts/fetch_substack.py`, the `FEED_URL` line         |

@@ -116,7 +116,6 @@
     open.addEventListener("click", function () { openProject(p, open); });
     h4.appendChild(open);
     card.appendChild(h4);
-    if (p.topic) card.appendChild(make("span", "topic", p.topic));
     card.appendChild(make("p", null, p.line));
     card.appendChild(make("span", "more", "Read more"));
     li.appendChild(card);

@@ -120,6 +120,7 @@ button { font: inherit; color: inherit; }
    The seat sits in the row, before the label, so both page edges get the same 16px. */
 @media (max-width: 699px) {
   .sec { margin-left: 0; }
+  .hero { padding-top: 28px; } /* less empty space above the name on phones */
   .seat { position: relative; left: auto; flex: none; margin-right: 12px; }
 }
 
@@ -246,15 +247,6 @@ h2 {
 .card h4 button:focus-visible { outline: none; }
 .card:has(:focus-visible) { outline: 2px solid var(--ink); outline-offset: 3px; }
 .card p { margin: 0; font-size: 1.05rem; line-height: 1.45; }
-/* A small topic oval under the title, e.g. "Imitation learning". */
-.card .topic {
-  align-self: flex-start;
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 4px 11px 4px 9px;
-  border: 1px solid var(--line); border-radius: 999px;
-  font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase;
-}
-.card .topic::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
 .card .more { margin-top: auto; align-self: flex-end; font-size: 0.66rem; }
 .card .more::after { content: " →"; color: var(--orange); }
 /* Cover picture: edge to edge at the top of the card. */
@@ -332,6 +324,24 @@ h2 {
 
 /* ---------- writing ---------- */
 .posts { margin-bottom: 28px; border-top: 1px solid var(--line); }
+.posts:empty { display: none; } /* no feed posts yet: no empty line */
+/* Writing: a featured piece with its picture, opens on Substack. */
+.article {
+  display: flex; flex-direction: column;
+  margin-bottom: 28px;
+  background: var(--card); border: 1px solid var(--line);
+  text-decoration: none;
+  transition: border-color 0.25s, transform 0.25s var(--ease), box-shadow 0.25s;
+}
+.article-pic { display: block; width: 100%; max-width: none; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-bottom: 1px solid var(--line); }
+.article-text { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px; }
+.article-meta { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.article-title { font-family: var(--head); font-weight: 700; font-size: clamp(1.3rem, 3.4vw, 1.6rem); line-height: 1.2; letter-spacing: -0.02em; }
+.article-more { align-self: flex-end; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange); }
+@media (hover: hover) {
+  .article:hover { border-color: var(--ink); transform: translateY(-3px); box-shadow: 0 10px 30px -18px rgba(29, 29, 31, 0.45); }
+  .article:hover .article-title { color: var(--orange); }
+}
 .posts li { border-bottom: 1px solid var(--line); padding: 16px 0; }
 .posts a { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; text-decoration: none; }
 .posts time { font-size: 0.72rem; padding-top: 0.45em; }
