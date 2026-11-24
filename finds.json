@@ -1,1 +1,78 @@
-[]
+[
+  {
+    "kind": "Paper",
+    "title": "π0 / π0.5: Vision-Language-Action Models for General Robot Control",
+    "by": "Physical Intelligence · 2024 / 2025",
+    "url": "https://arxiv.org/abs/2410.24164",
+    "links": [
+      {
+        "label": "π0.5 paper",
+        "url": "https://arxiv.org/abs/2504.16054"
+      }
+    ],
+    "note": "The current strongest general robot models.",
+    "image": {
+      "src": "img/finds/pi0.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "Overview figure of π0: a cross-embodiment robot dataset and internet-scale pre-training feed one vision-language-action model, which is then post-trained for difficult tasks."
+    },
+    "credit": "Figure: Black et al., arXiv 2410.24164"
+  },
+  {
+    "kind": "Paper",
+    "title": "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware (ALOHA / ACT)",
+    "by": "Zhao, Kumar, Levine, Finn · 2023",
+    "url": "https://arxiv.org/abs/2304.13705",
+    "note": "The easiest one to read, and LeRobot runs ACT on the SO-101.",
+    "image": {
+      "src": "img/finds/act.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "A person teleoperating two low-cost robot arms (ALOHA) on a black table."
+    },
+    "credit": "Figure: Zhao et al., arXiv 2304.13705"
+  },
+  {
+    "kind": "Paper",
+    "title": "What Matters: Datasets or Robust Frameworks in Modern Robot Learning?",
+    "by": "Md Selim Sarowar · 2026 · Preprints.org",
+    "url": "https://www.preprints.org/manuscript/202606.1149",
+    "note": "A review of more than 200 papers on one question: does robust robot manipulation come from better data or from better models?",
+    "image": {
+      "src": "img/finds/datasets-or-frameworks.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "Diagram from the review: robot manipulation learning split into a data axis, a model axis and an evaluation axis."
+    },
+    "credit": "Figure: Sarowar, Preprints.org, CC BY 4.0"
+  },
+  {
+    "kind": "Video",
+    "title": "Chelsea Finn: Building Robots That Can Do Anything",
+    "by": "Y Combinator · 2025 · 45 min",
+    "url": "https://www.youtube.com/watch?v=a8-QsBHoH94",
+    "note": "Chelsea Finn, co-founder of Physical Intelligence, on why general-purpose robots need foundation models trained on large, diverse data.",
+    "image": {
+      "src": "img/finds/yc-chelsea-finn.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "Video thumbnail: \"Foundation Models for Robotics\", Chelsea Finn, co-founder of Physical Intelligence."
+    },
+    "credit": "Thumbnail: Y Combinator"
+  },
+  {
+    "kind": "Video",
+    "title": "The GPT Moment for Robotics Is Here",
+    "by": "Y Combinator · 2026 · 49 min",
+    "url": "https://www.youtube.com/watch?v=4EsUaur0nsQ",
+    "note": "Why robots could soon get much, much better.",
+    "image": {
+      "src": "img/finds/yc-gpt-moment-robotics.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "Video thumbnail: \"Any robot. Any task.\" above five people from Physical Intelligence."
+    },
+    "credit": "Thumbnail: Y Combinator"
+  }
+]

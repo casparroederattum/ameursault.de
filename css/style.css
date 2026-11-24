@@ -262,6 +262,26 @@ h2 {
   .card:hover h4 { color: var(--orange); }
 }
 
+/* "More projects": small ovals with just the name; they open the same overlay. */
+.cards + .group, .pills + .group { margin-top: 48px; }
+.pills { display: flex; flex-wrap: wrap; gap: 12px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 11px 20px 11px 16px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--card); color: var(--ink);
+  font-family: var(--head); font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: border-color 0.25s, transform 0.25s var(--ease), box-shadow 0.25s;
+}
+.pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+.pill::after { content: "→"; font-family: var(--mono); font-size: 0.8rem; color: var(--orange); }
+.pill:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+@media (hover: hover) {
+  .pill:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 22px -16px rgba(29, 29, 31, 0.45); }
+}
+.sheet .lead { font-family: var(--head); font-weight: 600; font-size: 1.2rem; line-height: 1.35; }
+
 /* Project details overlay */
 .sheet {
   width: min(640px, calc(100vw - 32px));
@@ -307,14 +327,26 @@ h2 {
 .posts a { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; text-decoration: none; }
 .posts time { font-size: 0.72rem; padding-top: 0.45em; }
 .posts .soon { font-family: var(--head); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; }
-/* Papers and videos: kind on the left (like the post dates), title, who made it, a short note. */
-.finds .kind { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; padding-top: 0.45em; }
-.finds .find { display: flex; flex-direction: column; gap: 4px; }
-.finds .find-title { font-family: var(--head); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em; line-height: 1.25; }
+/* Papers and videos: a picture on the left, then kind, title, who made it and a short note.
+   On phones the picture sits on top. */
+.finds a { display: inline; gap: 0; } /* undo the post-list link grid */
+.finds .find-item { display: grid; grid-template-columns: minmax(0, 15rem) 1fr; gap: 22px; align-items: start; padding: 22px 0; }
+.finds .find-item > .find:first-child { grid-column: 1 / -1; } /* no picture: the text takes the whole row */
+.finds .find-pic { display: block; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+.finds .find-pic img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; transition: transform 0.4s var(--ease); }
+.finds .find { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.finds .kind { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange); }
+.finds .find-title { font-family: var(--head); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em; line-height: 1.25; text-decoration: none; }
 .finds .find-by { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; }
-.finds .find-note { font-size: 1rem; line-height: 1.5; }
-@media (hover: hover) { .finds a:hover .find-title { color: var(--orange); } }
-@media (max-width: 519px) { .finds a { grid-template-columns: 1fr; gap: 6px; } .finds .kind { padding-top: 0; } }
+.finds .find-note { margin: 4px 0 0; font-size: 1rem; line-height: 1.5; }
+.finds .find-more a { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; text-decoration: none; border-bottom: 1px solid var(--ink); padding: 6px 0 2px; }
+.finds .find-credit { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em; opacity: 0.65; }
+@media (hover: hover) {
+  .finds .find-title:hover, .finds .find-item:has(.find-pic:hover) .find-title { color: var(--orange); }
+  .finds .find-pic:hover img { transform: scale(1.03); }
+  .finds .find-more a:hover { border-color: var(--orange); }
+}
+@media (max-width: 599px) { .finds .find-item { grid-template-columns: 1fr; gap: 14px; } }
 .button {
   display: inline-block;
   padding: 14px 22px;

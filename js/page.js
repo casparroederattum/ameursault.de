@@ -52,11 +52,12 @@
   var dialog = document.getElementById("project-dialog");
   var lastCard = null;
 
-  function openProject(p, card) {
+  function openProject(p, card, withLine) {
     lastCard = card;
     document.getElementById("sheet-title").textContent = p.title;
     var body = document.getElementById("sheet-body");
     body.replaceChildren();
+    if (withLine && p.line) body.appendChild(make("p", "lead", p.line));
     (p.more || []).forEach(function (s) { body.appendChild(make("p", null, s)); });
     // Pictures inside the overlay are only created (and downloaded) when it opens.
     (p.gallery || []).forEach(function (g) {
@@ -121,6 +122,20 @@
     return li;
   }
 
+  // Projects without a group: a small oval with just the name. It opens the same overlay,
+  // which then starts with the one-line description, since the pill doesn't show it.
+  function pillFor(p, i) {
+    var li = make("li", "reveal");
+    li.style.transitionDelay = i * 60 + "ms";
+    var open = make("button", "pill", p.title);
+    open.type = "button";
+    open.title = p.line || "";
+    open.setAttribute("aria-haspopup", "dialog");
+    open.addEventListener("click", function () { openProject(p, open, true); });
+    li.appendChild(open);
+    return li;
+  }
+
   if (dialog) {
     document.getElementById("sheet-close").addEventListener("click", function () { dialog.close(); });
     // The dialog box itself has no padding, so a click whose target is the <dialog> is the backdrop.
@@ -143,8 +158,9 @@
       if (byName["More projects"]) { groups.splice(groups.indexOf("More projects"), 1); groups.push("More projects"); }
       groups.forEach(function (name) {
         box.appendChild(make("h3", "group reveal", name));
-        var list = make("ul", "cards");
-        byName[name].forEach(function (p, i) { list.appendChild(cardFor(p, i)); });
+        var small = name === "More projects";
+        var list = make("ul", small ? "pills" : "cards");
+        byName[name].forEach(function (p, i) { list.appendChild(small ? pillFor(p, i) : cardFor(p, i)); });
         box.appendChild(list);
       });
       box.querySelectorAll(".reveal").forEach(reveal);
@@ -184,21 +200,38 @@
       if (!Array.isArray(finds) || finds.length === 0) return; // keep "First ones soon."
       var list = document.getElementById("finds-list");
       list.replaceChildren();
+      function outLink(url, cls, text) {
+        var a = make("a", cls, text);
+        a.href = url;
+        a.target = "_blank";  // the arrow promises a new tab
+        a.rel = "noopener";
+        return a;
+      }
       finds.forEach(function (f) {
         var url = safeUrl(f.url);
         if (!url || !f.title) return;
-        var li = make("li");
-        var a = make("a");
-        a.href = url;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.appendChild(make("span", "kind", f.kind || ""));
-        var text = make("span", "find");
-        text.appendChild(make("span", "find-title", f.title + " ↗"));
+        var li = make("li", "find-item");
+        // The picture is a link too (hidden from screen readers and Tab, the title link is enough).
+        if (f.image && f.image.src) {
+          var pic = outLink(url, "find-pic");
+          pic.tabIndex = -1;
+          pic.setAttribute("aria-hidden", "true");
+          pic.appendChild(picture(f.image, "lazy"));
+          li.appendChild(pic);
+        }
+        var text = make("div", "find");
+        text.appendChild(make("span", "kind", f.kind || ""));
+        text.appendChild(outLink(url, "find-title", f.title + " ↗"));
         if (f.by) text.appendChild(make("span", "find-by", f.by));
-        if (f.note) text.appendChild(make("span", "find-note", f.note));
-        a.appendChild(text);
-        li.appendChild(a);
+        if (f.note) text.appendChild(make("p", "find-note", f.note));
+        var extra = (f.links || []).filter(function (l) { return safeUrl(l.url) && l.label; });
+        if (extra.length) {
+          var more = make("span", "find-more");
+          extra.forEach(function (l) { more.appendChild(outLink(l.url, null, l.label + " ↗")); });
+          text.appendChild(more);
+        }
+        if (f.credit) text.appendChild(make("span", "find-credit", f.credit));
+        li.appendChild(text);
         list.appendChild(li);
       });
     })

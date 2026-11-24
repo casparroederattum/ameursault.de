@@ -72,12 +72,6 @@
   {
     "title": "Less",
     "line": "A Mac app that tells you, kindly, which tech you could let go of after analyzing your time usage, its benefit for your goals and its replaceability through better apps.",
-    "image": {
-      "src": "img/less.webp",
-      "width": 1200,
-      "height": 675,
-      "alt": "Less on the Mac: under Scan, a card for my iPhone says \"Reduce\" and suggests keeping it out of the bedroom and using a paper alarm clock; below it, Safari is marked \"Keep\"."
-    },
     "more": [
       "Each app you decide to download is downloaded with the intention to make your life a little better. Turns out we are very bad at knowing what makes us happier.",
       "Less looks at the technology in your life (apps, time spent in them, what starts on its own, notifications, devices) and suggests, kindly, what you could turn down or let go of, and what to do instead.",
