@@ -63,15 +63,15 @@
   },
   {
     "kind": "Video",
-    "title": "The GPT Moment for Robotics Is Here",
-    "by": "Y Combinator · 2026 · 49 min",
-    "url": "https://www.youtube.com/watch?v=4EsUaur0nsQ",
-    "note": "Why robots could soon get much, much better.",
+    "title": "Why Robotics Still Isn't Solved – But Could Be Soon",
+    "by": "YC Paper Club · Y Combinator · 2026 · 1 h 24 min",
+    "url": "https://www.youtube.com/watch?v=myDCd0hNqQU",
+    "note": "Why robotics still isn't solved, and why that could change soon.",
     "image": {
-      "src": "img/finds/yc-gpt-moment-robotics.webp",
+      "src": "img/finds/yc-paper-club-robotics.webp",
       "width": 640,
       "height": 360,
-      "alt": "Video thumbnail: \"Any robot. Any task.\" above five people from Physical Intelligence."
+      "alt": "Video thumbnail: \"YC Paper Club, July 29, 2026\" over a collage of charts from research papers."
     },
     "credit": "Thumbnail: Y Combinator"
   }
