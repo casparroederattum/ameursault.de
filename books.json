@@ -56,11 +56,11 @@
     "review": "This is like yin and yang with the Steve Jobs biography. Boring book, great info though. I read it on a holiday with my friends, and even though it was boring and long, it made me understand the rise of computer software and Bill Gates' obsession to win. I loved that about him."
   },
   {
-    "title": "L'Étranger",
-    "author": "Albert Camus",
-    "cover": "img/books/etranger.webp",
+    "title": "The Elements of Style",
+    "author": "William Strunk Jr. & E. B. White",
+    "cover": "img/books/elements-of-style.webp",
     "status": "read",
-    "review": "Goonie Goonie Goonie..."
+    "review": "I'm still learning how to write, but when I'm stuck, I think back to the simple things this book teaches: simplicity, directness and finding authenticity in writing. I still struggle a lot though. As with all great skills: they don't come easy (-;"
   },
   {
     "title": "Die Pest",
@@ -70,11 +70,11 @@
     "review": ""
   },
   {
-    "title": "The Elements of Style",
-    "author": "William Strunk Jr. & E. B. White",
-    "cover": "img/books/elements-of-style.webp",
+    "title": "L'Étranger",
+    "author": "Albert Camus",
+    "cover": "img/books/etranger.webp",
     "status": "read",
-    "review": "I'm still learning how to write, but when I'm stuck, I think back to the simple things this book teaches: simplicity, directness and finding authenticity in writing. I still struggle a lot though. As with all great skills: they don't come easy (-;"
+    "review": "Goonie Goonie Goonie..."
   },
   {
     "title": "How to Win Friends and Influence People",
