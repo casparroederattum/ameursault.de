@@ -27,7 +27,7 @@
     return li;
   }
 
-  fetch("books.json")
+  fetch("books.json", { cache: "no-cache" })
     .then(function (r) { return r.json(); })
     .then(function (books) {
       if (!Array.isArray(books) || books.length === 0) return; // keep "First books soon."

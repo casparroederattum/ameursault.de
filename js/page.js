@@ -144,7 +144,7 @@
     dialog.addEventListener("close", function () { if (lastCard) lastCard.focus(); });
   }
 
-  fetch("projects.json")
+  fetch("projects.json", { cache: "no-cache" })
     .then(function (r) { return r.json(); })
     .then(function (projects) {
       // Projects with a "group" are shown together under that name, groups in the order they
@@ -169,7 +169,7 @@
     .catch(function () { /* the noscript-style fallback text is enough; nothing to break */ });
 
   // --- writing (posts.json is written by scripts/fetch_substack.py) ---
-  fetch("posts.json")
+  fetch("posts.json", { cache: "no-cache" })
     .then(function (r) { return r.json(); })
     .then(function (posts) {
       if (!Array.isArray(posts) || posts.length === 0) return; // keep "Learning it right now."
@@ -195,7 +195,7 @@
     .catch(function () { /* no posts file: the default text stays */ });
 
   // --- science papers and videos (finds.json, kept by hand, in the order listed) ---
-  fetch("finds.json")
+  fetch("finds.json", { cache: "no-cache" })
     .then(function (r) { return r.json(); })
     .then(function (finds) {
       if (!Array.isArray(finds) || finds.length === 0) return; // keep "First ones soon."

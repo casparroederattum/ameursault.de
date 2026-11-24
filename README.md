@@ -15,6 +15,7 @@ Hosted on GitHub Pages from the `main` branch.
 | add a paper or video        | `finds.json`: `{ "kind": "Paper" or "Video", "title", "by", "url", "note", "image": { "src": "img/finds/….webp", "width": 640, "height": 360, "alt" }, "credit", "links": [extra links] }`, shown in the order listed; pictures 640×360 |
 
 Then commit and push. The site updates within a minute or two.
+After changing `css/style.css` or a file in `js/`, raise the `?v=` number where the HTML pages link it, so browsers fetch the new version instead of a cached one.
 
 ## See it locally (fish)
 
