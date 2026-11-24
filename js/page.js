@@ -176,4 +176,31 @@
       document.getElementById("substack-cta").textContent = "Subscribe on Substack";
     })
     .catch(function () { /* no posts file: the default text stays */ });
+
+  // --- science papers and videos (finds.json, kept by hand, in the order listed) ---
+  fetch("finds.json")
+    .then(function (r) { return r.json(); })
+    .then(function (finds) {
+      if (!Array.isArray(finds) || finds.length === 0) return; // keep "First ones soon."
+      var list = document.getElementById("finds-list");
+      list.replaceChildren();
+      finds.forEach(function (f) {
+        var url = safeUrl(f.url);
+        if (!url || !f.title) return;
+        var li = make("li");
+        var a = make("a");
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.appendChild(make("span", "kind", f.kind || ""));
+        var text = make("span", "find");
+        text.appendChild(make("span", "find-title", f.title + " ↗"));
+        if (f.by) text.appendChild(make("span", "find-by", f.by));
+        if (f.note) text.appendChild(make("span", "find-note", f.note));
+        a.appendChild(text);
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    })
+    .catch(function () { /* no finds file: the default text stays */ });
 })();

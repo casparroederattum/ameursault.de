@@ -307,6 +307,14 @@ h2 {
 .posts a { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; text-decoration: none; }
 .posts time { font-size: 0.72rem; padding-top: 0.45em; }
 .posts .soon { font-family: var(--head); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; }
+/* Papers and videos: kind on the left (like the post dates), title, who made it, a short note. */
+.finds .kind { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; padding-top: 0.45em; }
+.finds .find { display: flex; flex-direction: column; gap: 4px; }
+.finds .find-title { font-family: var(--head); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em; line-height: 1.25; }
+.finds .find-by { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; }
+.finds .find-note { font-size: 1rem; line-height: 1.5; }
+@media (hover: hover) { .finds a:hover .find-title { color: var(--orange); } }
+@media (max-width: 519px) { .finds a { grid-template-columns: 1fr; gap: 6px; } .finds .kind { padding-top: 0; } }
 .button {
   display: inline-block;
   padding: 14px 22px;
