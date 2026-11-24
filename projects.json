@@ -11,9 +11,8 @@
     },
     "more": [
       "A Mac app that turns your whole body into a grid of white blocks on black, live from the camera. Up to two people and four hands at once.",
-      "Two models run side by side: one for the body (33 points) and one for each hand (21 points). Where the hand model finds a real hand near a wrist, it replaces the body model's rough guess. So the palm is filled and the fingers are thin lines.",
+      "I built this to experiment with Google's MediaPipe library. Two models run side by side: one for the body (33 points) and one for each hand (21 points). Where the hand model finds a hand near a wrist, it replaces the body model's rough guess. So the palm is filled and the fingers are thin lines, basically.",
       "Every size scales with your shoulder width, so the figure looks the same whether you stand close or far away. It also counts raised fingers, kept steady over the last five frames, even when the hand is turned.",
-      "Everything runs on the laptop: nothing goes over the internet, nothing is recorded.",
       "It started as two small projects, one for the body and one for the hands. This one puts them together."
     ],
     "links": []
