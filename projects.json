@@ -71,9 +71,11 @@
   },
   {
     "title": "Less",
-    "line": "A calm Mac app that tells you, kindly, which tech you could let go of.",
+    "line": "A Mac app that tells you, kindly, which tech you could let go of after analyzing your time usage, its benefit for your goals and its replaceability through better apps.",
     "more": [
+      "Each app you decide to download is downloaded with the intention to make your life a little better. Turns out we are very bad at knowing what makes us happier.",
       "Less looks at the technology in your life (apps, time spent in them, what starts on its own, notifications, devices) and suggests, kindly, what you could turn down or let go of, and what to do instead.",
+      "I didn't build this to take away the last bit of freedom in your decisions, but to make a point: life can be much, much better if you delete stuff from it.",
       "Everything stays on your Mac. Every permission is optional, Less asks for them one at a time, and a \"What Less knows\" screen shows exactly what was read, with a button that deletes it.",
       "It is honest about its limits: where macOS gives no public way to see something, the app says so instead of guessing.",
       "If a small local model runs on the Mac, Less uses it only to word its suggestions more nicely."
