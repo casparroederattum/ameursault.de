@@ -1,23 +1,23 @@
 [
   {
     "kind": "Paper",
-    "title": "π0 / π0.5: Vision-Language-Action Models for General Robot Control",
-    "by": "Physical Intelligence · 2024 / 2025",
-    "url": "https://arxiv.org/abs/2410.24164",
+    "title": "Empirical results fine-tuning π0.5 on a real manufacturing task",
+    "by": "Dream Machines, Zurich · 2026",
+    "url": "https://dream-machines.eu/blog/pi05-fine-tuning",
     "links": [
       {
         "label": "π0.5 paper",
         "url": "https://arxiv.org/abs/2504.16054"
       }
     ],
-    "note": "The current strongest general robot models.",
+    "note": "They fine-tuned π0.5 on a real task from a German manufacturer and measured on the robot what actually helps: training length, LoRA vs. full fine-tuning, batch size, and how much and how good the data is.",
     "image": {
-      "src": "img/finds/pi0.webp",
+      "src": "img/finds/dream-machines-pi05.webp",
       "width": 640,
       "height": 360,
-      "alt": "Overview figure of π0: a cross-embodiment robot dataset and internet-scale pre-training feed one vision-language-action model, which is then post-trained for difficult tasks."
+      "alt": "Two black robot arms facing each other in a lit box, with the post's title over the picture."
     },
-    "credit": "Figure: Black et al., arXiv 2410.24164"
+    "credit": "Image: Dream Machines"
   },
   {
     "kind": "Paper",

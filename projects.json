@@ -20,6 +20,7 @@
   },
   {
     "title": "SO-101 robot arm",
+    "topic": "Imitation learning",
     "group": "Computer Vision",
     "line": "Teaching a small open-source robot arm to move. The motors are bought, I'm building it in December. Working on it right now (-:",
     "image": {

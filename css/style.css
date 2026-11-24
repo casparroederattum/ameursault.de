@@ -246,6 +246,15 @@ h2 {
 .card h4 button:focus-visible { outline: none; }
 .card:has(:focus-visible) { outline: 2px solid var(--ink); outline-offset: 3px; }
 .card p { margin: 0; font-size: 1.05rem; line-height: 1.45; }
+/* A small topic oval under the title, e.g. "Imitation learning". */
+.card .topic {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 4px 11px 4px 9px;
+  border: 1px solid var(--line); border-radius: 999px;
+  font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.card .topic::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
 .card .more { margin-top: auto; align-self: flex-end; font-size: 0.66rem; }
 .card .more::after { content: " →"; color: var(--orange); }
 /* Cover picture: edge to edge at the top of the card. */
