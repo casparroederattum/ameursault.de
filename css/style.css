@@ -404,6 +404,7 @@ h2 {
 .reading-title { font-family: var(--head); font-weight: 700; font-size: 1.55rem; letter-spacing: -0.02em; line-height: 1.1; }
 .reading-sub { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .reading-sub::after { content: " →"; color: var(--orange); }
+.reading-title:only-child::after { content: " →"; color: var(--orange); } /* no subtitle: the arrow goes on the title */
 @media (hover: hover) {
   .reading-link:hover { border-color: var(--ink); transform: translateY(-3px); }
   .reading-link:hover .reading-title { color: var(--orange); }
