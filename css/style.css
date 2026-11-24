@@ -116,6 +116,13 @@ button { font: inherit; color: inherit; }
 }
 .label { font-size: 0.72rem; }
 
+/* Phones: no spine column on the left (it pushed everything to the right).
+   The seat sits in the row, before the label, so both page edges get the same 16px. */
+@media (max-width: 699px) {
+  .sec { margin-left: 0; }
+  .seat { position: relative; left: auto; flex: none; margin-right: 12px; }
+}
+
 /* Wide screens: a second blade on the far left, like the pairs of oars in the print. */
 @media (min-width: 1140px) {
   .seat::after {
