@@ -10,7 +10,7 @@
         "url": "https://arxiv.org/abs/2504.16054"
       }
     ],
-    "note": "They fine-tuned π0.5 on a real task from a German manufacturer and measured on the robot what actually helps: training length, LoRA vs. full fine-tuning, batch size, and how much and how good the data is.",
+    "note": "They fine-tuned π0.5 on a real task from a German manufacturer and measured on the robot what actually helps: training length, fine-tuning, batch size, how much and how good the data is, and some other stuff. You should check them out. From what I've seen, they are a great new startup.",
     "image": {
       "src": "img/finds/dream-machines-pi05.webp",
       "width": 640,
