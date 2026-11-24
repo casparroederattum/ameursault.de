@@ -42,9 +42,9 @@
     "review": ""
   },
   {
-    "title": "The Algebra of Wealth",
-    "author": "Scott Galloway",
-    "cover": "img/books/algebra-of-wealth.webp",
+    "title": "The Great Work of Your Life",
+    "author": "Stephen Cope",
+    "cover": "img/books/great-work-of-your-life.webp",
     "status": "read",
     "review": ""
   },
@@ -87,6 +87,13 @@
     "title": "Zero to One",
     "author": "Peter Thiel with Blake Masters",
     "cover": "img/books/zero-to-one.webp",
+    "status": "read",
+    "review": ""
+  },
+  {
+    "title": "The Algebra of Wealth",
+    "author": "Scott Galloway",
+    "cover": "img/books/algebra-of-wealth.webp",
     "status": "read",
     "review": ""
   }
