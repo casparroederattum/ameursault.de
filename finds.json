@@ -1,6 +1,26 @@
 [
   {
     "kind": "Paper",
+    "title": "One Demonstration Is Enough for Real-World Robotic Reinforcement Learning (AutoSERL)",
+    "by": "Liu, Yu, Liu, Wang, Zhang, Yang, Chen, Zhang · 2026",
+    "url": "https://arxiv.org/abs/2607.01651",
+    "links": [
+      {
+        "label": "Project page",
+        "url": "https://autoserl.github.io/"
+      }
+    ],
+    "note": "I'm reading this one this week.",
+    "image": {
+      "src": "img/finds/autoserl.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "Two robot setups side by side: a UR5 arm with a robot hand on an aluminium frame, and a Franka arm with a parallel gripper."
+    },
+    "credit": "Figure: Liu et al., arXiv 2607.01651, CC BY 4.0"
+  },
+  {
+    "kind": "Paper",
     "title": "Empirical results fine-tuning π0.5 on a real manufacturing task",
     "by": "Dream Machines, Zurich · 2026",
     "url": "https://dream-machines.eu/blog/pi05-fine-tuning",
