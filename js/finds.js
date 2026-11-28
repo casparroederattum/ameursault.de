@@ -21,7 +21,7 @@
   fetch("finds.json", { cache: "no-cache" })
     .then(function (r) { return r.json(); })
     .then(function (finds) {
-      if (!Array.isArray(finds) || finds.length === 0) return; // keep "First ones soon."
+      if (!Array.isArray(finds) || finds.length === 0) return; // nothing to show
       var list = document.getElementById("finds-list");
       list.replaceChildren();
       function outLink(url, cls, text) {
@@ -59,5 +59,5 @@
         list.appendChild(li);
       });
     })
-    .catch(function () { /* no finds file: the default text stays */ });
+    .catch(function () { /* no finds file: the list stays empty */ });
 })();

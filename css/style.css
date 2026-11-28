@@ -345,7 +345,6 @@ h2 {
 .posts li { border-bottom: 1px solid var(--line); padding: 16px 0; }
 .posts a { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; text-decoration: none; }
 .posts time { font-size: 0.72rem; padding-top: 0.45em; }
-.posts .soon { font-family: var(--head); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; }
 /* Papers and videos: a picture on the left, then kind, title, who made it and a short note.
    On phones the picture sits on top. */
 .finds a { display: inline; gap: 0; } /* undo the post-list link grid */
@@ -435,7 +434,6 @@ h2 {
 .books .book h3 { margin: 0 0 4px; font-size: clamp(1.05rem, 3.6vw, 1.35rem); line-height: 1.15; overflow-wrap: anywhere; }
 .books .book .by { margin: 0; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; }
 .books .book .review { margin: 12px 0 0; font-size: 1rem; }
-.books .soon { padding: 28px 0; font-family: var(--head); font-weight: 600; font-size: 1.4rem; }
 @media (min-width: 640px) { .shelf { gap: 44px 36px; } }
 
 .legal { max-width: 720px; padding-top: 48px; padding-bottom: 96px; }

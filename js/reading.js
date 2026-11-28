@@ -30,7 +30,7 @@
   fetch("books.json", { cache: "no-cache" })
     .then(function (r) { return r.json(); })
     .then(function (books) {
-      if (!Array.isArray(books) || books.length === 0) return; // keep "First books soon."
+      if (!Array.isArray(books) || books.length === 0) return; // nothing to show
       var box = document.getElementById("books");
       box.replaceChildren();
       [["reading", "Reading now"], ["read", "Read"]].forEach(function (g) {
@@ -42,5 +42,5 @@
         box.appendChild(ul);
       });
     })
-    .catch(function () { /* no books file: the default text stays */ });
+    .catch(function () { /* no books file: the list stays empty */ });
 })();
